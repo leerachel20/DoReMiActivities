@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>등불이 있으면 무섭지 않아 - Ellie의 3D 페이퍼 랜턴 (Cricut 독후활동)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Outfit:wght@400;600;700;800&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-night: #0b111e;
+      --bg-card: #151f32;
+      --bg-card-glass: rgba(21, 31, 50, 0.75);
+      --amber-light: #ffaa33;
+      --amber-glow: rgba(255, 170, 51, 0.45);
+      --amber-warm: #ffdd88;
+      --text-main: #f0f4f8;
+      --text-sub: #94a3b8;
+      --accent: #f59e0b;
+      --accent-hover: #d97706;
+      --cricut-green: #00823e;
+      --cricut-green-glow: rgba(0, 130, 62, 0.3);
+      --border-line: rgba(255, 255, 255, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-night);
+      color: var(--text-main);
+      font-family: 'Gowun Dodum', 'Outfit', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(255, 170, 51, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(56, 189, 248, 0.06) 0%, transparent 40%),
+        linear-gradient(to bottom, #090e17 0%, #0d1527 100%);
+    }
+
+    /* Header */
+    header {
+      padding: 2.5rem 1.5rem 1.5rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .badge-book {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #fbbf24;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(135deg, #ffffff 0%, #ffdd88 60%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: var(--text-sub);
+      font-size: 1.1rem;
+      max-width: 650px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.6;
+    }
+
+    .name-tag-callout {
+      display: inline-block;
+      padding: 6px 20px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px dashed var(--accent);
+      color: var(--amber-warm);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    /* 3D Showcase & Control Section */
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      align-items: stretch;
+    }
+
+    @media (max-width: 960px) {
+      .showcase-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .viewer-card {
+      background: var(--bg-card-glass);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-line);
+      border-radius: 20px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 520px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .viewer-controls {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      display: flex;
+      gap: 8px;
+      z-index: 20;
+    }
+
+    .btn-ctrl {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-ctrl:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .btn-ctrl.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #000;
+      font-weight: 700;
+      box-shadow: 0 0 15px var(--amber-glow);
+    }
+
+    .hint-rotate {
+      position: absolute;
+      bottom: 1.25rem;
+      color: var(--text-sub);
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      pointer-events: none;
+    }
+
+    /* 3D CSS Lantern Scene */
+    .scene {
+      width: 260px;
+      height: 380px;
+      perspective: 900px;
+      -webkit-perspective: 900px;
+      perspective-origin: 50% 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      user-select: none;
+    }
+
+    /* Ambient Candle Light Glow behind the Lantern (Keeps 3D intact!) */
+    .scene-glow {
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 170, 51, 0.45) 0%, rgba(245, 158, 11, 0.2) 50%, transparent 70%);
+      pointer-events: none;
+      filter: blur(25px);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 0;
+    }
+
+    .scene.lit .scene-glow {
+      opacity: 1;
+      animation: ambientFlicker 2.5s infinite alternate ease-in-out;
+    }
+
+    @keyframes ambientFlicker {
+      0% { transform: scale(0.95); opacity: 0.85; }
+      50% { transform: scale(1.06); opacity: 1.0; }
+      100% { transform: scale(0.97); opacity: 0.9; }
+    }
+
+    .lantern-3d {
+      width: 140px;
+      height: 240px;
+      position: relative;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      transform: rotateX(-12deg) rotateY(25deg);
+      transition: transform 0.05s ease-out;
+      cursor: grab;
+      z-index: 2;
+    }
+
+    .lantern-3d:active {
+      cursor: grabbing;
+    }
+
+    /* Lantern Panels */
+    .lantern-face {
+      position: absolute;
+      width: 140px;
+      height: 230px;
+      background: #182233;
+      border: 1px solid #2a3b55;
+      border-radius: 4px;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      backface-visibility: visible;
+      -webkit-backface-visibility: visible;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+
+    /* Faces placement (Width 140px => translation = 70px) */
+    .face-front  { transform: rotateY(0deg) translateZ(70px); }
+    .face-right  { transform: rotateY(90deg) translateZ(70px); }
+    .face-back   { transform: rotateY(180deg) translateZ(70px); }
+    .face-left   { transform: rotateY(-90deg) translateZ(70px); }
+
+    /* Bottom Plate */
+    .face-bottom {
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      top: 45px;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      transform: rotateX(-90deg) translateZ(115px);
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .face-bottom::after {
+      content: '';
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: #000;
+      border: 1px dashed rgba(255,255,255,0.2);
+    }
+
+    /* SVG cutout overlay inside each face */
+    .face-art {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 8px 8px;
+    }
+
+    .face-window {
+      width: 100%;
+      height: 160px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.4s;
+    }
+
+    .face-art svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .face-name {
+      height: 38px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.4s;
+    }
+
+    /* Roof 3D */
+    .lantern-roof {
+      position: absolute;
+      top: -45px;
+      left: 0;
+      width: 140px;
+      height: 45px;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+    }
+
+    .roof-face {
+      position: absolute;
+      width: 140px;
+      height: 55px;
+      background: #1e2c40;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      transform-origin: bottom center;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.6);
+      transition: background 0.4s;
+    }
+
+    .roof-front { transform: rotateY(0deg) translateZ(70px) rotateX(-45deg); }
+    .roof-right { transform: rotateY(90deg) translateZ(70px) rotateX(-45deg); }
+    .roof-back  { transform: rotateY(180deg) translateZ(70px) rotateX(-45deg); }
+    .roof-left  { transform: rotateY(-90deg) translateZ(70px) rotateX(-45deg); }
+
+    /* Top Ring Handle */
+    .lantern-handle {
+      position: absolute;
+      top: -95px;
+      left: 45px;
+      width: 50px;
+      height: 60px;
+      border: 4px solid #f59e0b;
+      border-radius: 25px 25px 0 0;
+      border-bottom: none;
+      transform: rotateY(45deg);
+      transition: all 0.4s;
+    }
+
+    /* Candle Glow Effect (Active State) */
+    .scene.lit .lantern-face {
+      box-shadow: inset 0 0 15px rgba(255, 170, 51, 0.25), 0 0 15px rgba(255, 170, 51, 0.2);
+    }
+
+    .scene.lit .face-window {
+      background: radial-gradient(circle at 50% 60%, rgba(255, 235, 160, 0.98) 0%, rgba(255, 170, 40, 0.9) 55%, rgba(217, 119, 6, 0.75) 100%);
+      box-shadow: 0 0 20px rgba(255, 170, 51, 0.55);
+      animation: candleFlicker 2.5s infinite alternate ease-in-out;
+    }
+
+    .scene.lit .face-name {
+      color: #ffdd88;
+      text-shadow: 0 0 10px rgba(255, 180, 50, 0.8);
+      background: rgba(255, 170, 51, 0.15);
+    }
+
+    .scene.lit .roof-face {
+      background: #253752;
+    }
+
+    @keyframes candleFlicker {
+      0% { opacity: 0.92; filter: brightness(1); }
+      25% { opacity: 0.98; filter: brightness(1.08); }
+      50% { opacity: 0.89; filter: brightness(0.96); }
+      75% { opacity: 1.0; filter: brightness(1.12); }
+      100% { opacity: 0.94; filter: brightness(1.02); }
+    }
+
+    /* Detail / Action Card */
+    .info-card {
+      background: var(--bg-card-glass);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-line);
+      border-radius: 20px;
+      padding: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    .features-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px 16px;
+      border-radius: 12px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .feature-icon {
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+
+    .feature-text h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 3px;
+    }
+
+    .feature-text p {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      line-height: 1.4;
+    }
+
+    /* Download Buttons Grid */
+    .download-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .download-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .btn-download {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #0b111e;
+      font-weight: 700;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+      transition: all 0.2s;
+    }
+
+    .btn-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45);
+    }
+
+    .btn-download .btn-sub {
+      font-size: 0.72rem;
+      opacity: 0.85;
+      font-weight: normal;
+      margin-top: 2px;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      box-shadow: none;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Cricut Guide Section */
+    .guide-section {
+      background: var(--bg-card-glass);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-line);
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .cricut-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 130, 62, 0.2);
+      border: 1px solid rgba(0, 130, 62, 0.4);
+      color: #4ade80;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .step-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #000;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .step-card h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+
+    .step-card p {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    .highlight-box {
+      background: rgba(245, 158, 11, 0.1);
+      border-left: 3px solid var(--accent);
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-top: 10px;
+      font-size: 0.82rem;
+      color: var(--amber-warm);
+    }
+
+    /* 4 Panels Story Cutout Detail */
+    .panels-section {
+      background: var(--bg-card-glass);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-line);
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .panels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .story-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .story-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .story-card-icon {
+      font-size: 2.2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .story-card h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .story-card p {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    .ellie-badge {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 4px 12px;
+      border-radius: 6px;
+      background: rgba(255, 170, 51, 0.15);
+      color: #ffdd88;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* 2D Cutout SVG Preview Tabs */
+    .preview-section {
+      background: var(--bg-card-glass);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-line);
+      border-radius: 20px;
+      padding: 2.5rem;
+    }
+
+    .tab-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-sub);
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      color: #000;
+      font-weight: 700;
+      border-color: var(--accent);
+    }
+
+    .svg-viewer-container {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 1.5rem;
+      min-height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: auto;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .svg-viewer-container img, .svg-viewer-container svg {
+      max-width: 100%;
+      height: auto;
+      max-height: 500px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      color: var(--text-sub);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge-book">📖 도레미곰 39번 독후활동</div>
+    <h1>등불이 있으면 무섭지 않아</h1>
+    <p class="subtitle">
+      사진의 아치형 전개도 디자인을 그대로 살려, 크리컷(Cricut)으로 한 번에 자르는 심플 3D 랜턴 도안입니다.<br>
+      한쪽 면에는 우리 아이 <strong>Ellie</strong>의 이름이 예쁘게 빛나고, 다른 면들에는 동화의 따스한 모티브가 담겨 있어요!
+    </p>
+    <div class="name-tag-callout">
+      ✨ 1면 메인 커팅 각인: <strong>✦ Ellie ✦</strong> (아치 프레임 & 스텐실 브릿지 안심 설계)
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- 3D SHOWCASE & DOWNLOADS -->
+    <div class="showcase-grid">
+      
+      <!-- Left: Interactive 3D Lantern Viewer -->
+      <div class="viewer-card">
+        <div class="viewer-controls">
+          <button id="toggleLightBtn" class="btn-ctrl active">
+            💡 등불 켜기 (ON)
+          </button>
+          <button id="autoRotateBtn" class="btn-ctrl">
+            🔄 자동 회전
+          </button>
+        </div>
+
+        <div class="scene lit" id="sceneContainer">
+          <!-- Ambient candle light behind 3D lantern (Safe from 3D flattening) -->
+          <div class="scene-glow"></div>
+
+          <div class="lantern-3d" id="lantern3d">
+            
+            <!-- Top Handle -->
+            <div class="lantern-handle"></div>
+
+            <!-- Pyramid Roof -->
+            <div class="lantern-roof">
+              <div class="roof-face roof-front"></div>
+              <div class="roof-face roof-right"></div>
+              <div class="roof-face roof-back"></div>
+              <div class="roof-face roof-left"></div>
+            </div>
+
+            <!-- Solid Bottom Base Plate with tea light hole -->
+            <div class="face-bottom"></div>
+
+            <!-- Face 1: Front (Ellie's Starry Wreath Window) -->
+            <div class="lantern-face face-front">
+              <div class="face-art">
+                <div class="face-window">
+                  <svg viewBox="0 0 50 72">
+                    <!-- Starry Botanical Wreath Silhouette in dark navy/paper color -->
+                    <path d="M 4,2 Q 25,-1 46,2 L 46,24 C 42,20 36,25 25,21 C 20,17 12,25 4,24 Z" fill="#182233" opacity="0.85" />
+                    <path d="M 4,48 C 14,46 20,52 25,49 C 34,46 42,52 46,48 L 46,68 Q 25,71 4,68 Z" fill="#182233" opacity="0.85" />
+                    <!-- Crown Star & Dots -->
+                    <path d="M 23,6 Q 25,6 25,3.5 Q 25,6 27,6 Q 25,6 25,8.5 Q 25,6 23,6 Z" fill="#ffaa33" />
+                    <circle cx="15" cy="11" r="1.3" fill="#ffaa33" />
+                    <circle cx="35" cy="11" r="1.3" fill="#ffaa33" />
+                    <!-- Center Ellie Banner Text -->
+                    <text x="25" y="38" text-anchor="middle" font-family="'Outfit', sans-serif" font-weight="800" font-size="8.5" fill="#182233" letter-spacing="1">✦ Ellie ✦</text>
+                  </svg>
+                </div>
+                <div class="face-name">✦ Ellie ✦</div>
+              </div>
+            </div>
+
+            <!-- Face 2: Right (Window Box Cutout) -->
+            <div class="lantern-face face-right">
+              <div class="face-art">
+                <div class="face-window">
+                  <svg viewBox="0 0 50 72">
+                    <path d="M 4,2 Q 25,-1 46,2 L 46,68 Q 25,71 4,68 Z" fill="none" stroke="rgba(255,255,255,0.4)" stroke-dasharray="2,2" stroke-width="0.8" />
+                    <text x="25" y="33" text-anchor="middle" font-size="12">🔲</text>
+                    <text x="25" y="44" text-anchor="middle" font-family="'Outfit', sans-serif" font-weight="700" font-size="4.5" fill="#182233">OPEN WINDOW</text>
+                    <text x="25" y="50" text-anchor="middle" font-size="3.5" fill="#182233" opacity="0.8">(자유 디자인)</text>
+                  </svg>
+                </div>
+                <div class="face-name">✦ Window Box 1 ✦</div>
+              </div>
+            </div>
+
+            <!-- Face 3: Back (Window Box Cutout) -->
+            <div class="lantern-face face-back">
+              <div class="face-art">
+                <div class="face-window">
+                  <svg viewBox="0 0 50 72">
+                    <path d="M 4,2 Q 25,-1 46,2 L 46,68 Q 25,71 4,68 Z" fill="none" stroke="rgba(255,255,255,0.4)" stroke-dasharray="2,2" stroke-width="0.8" />
+                    <text x="25" y="33" text-anchor="middle" font-size="12">🔲</text>
+                    <text x="25" y="44" text-anchor="middle" font-family="'Outfit', sans-serif" font-weight="700" font-size="4.5" fill="#182233">OPEN WINDOW</text>
+                    <text x="25" y="50" text-anchor="middle" font-size="3.5" fill="#182233" opacity="0.8">(자유 디자인)</text>
+                  </svg>
+                </div>
+                <div class="face-name">✦ Window Box 2 ✦</div>
+              </div>
+            </div>
+
+            <!-- Face 4: Left (Cozy Cabin in the Woods - Favorite) -->
+            <div class="lantern-face face-left">
+              <div class="face-art">
+                <div class="face-window">
+                  <svg viewBox="0 0 50 72">
+                    <!-- Cabin & Pine Trees silhouette at bottom -->
+                    <path d="M 4,68 L 4,50 L 13,34 L 19,40 L 27,31 L 30,28 L 33,28 L 35,40 L 41,36 L 46,50 L 46,68 Z" fill="#182233" />
+                    <!-- Cabin 4-pane glowing window cutout -->
+                    <rect x="21" y="44" width="4.2" height="4.2" rx="0.6" fill="#ffea9f" />
+                    <rect x="26.8" y="44" width="4.2" height="4.2" rx="0.6" fill="#ffea9f" />
+                    <rect x="21" y="49.8" width="4.2" height="4.2" rx="0.6" fill="#ffea9f" />
+                    <rect x="26.8" y="49.8" width="4.2" height="4.2" rx="0.6" fill="#ffea9f" />
+                    <!-- Door cutout -->
+                    <path d="M 33.5,62 L 33.5,54 Q 35.5,52 37.5,54 L 37.5,62 Z" fill="#ffea9f" />
+                  </svg>
+                </div>
+                <div class="face-name">✦ Cozy Cabin ✦</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="hint-rotate">
+          <span>🖱️ 마우스 드래그로 360도 랜턴을 돌려보세요</span>
+        </div>
+      </div>
+
+      <!-- Right: Info & Direct SVG Downloads -->
+      <div class="info-card">
+        <div>
+          <div class="section-title">
+            <span></span>
+            Ellie의 3D 등불 만들기 세트
+          </div>
+
+          <ul class="features-list">
+            <li class="feature-item">
+              <div class="feature-icon">✨</div>
+              <div class="feature-text">
+                <h4>모든 면 하단 'Ellie' 이름 각인</h4>
+                <p>소문자 'e'의 안쪽 종이가 떨어지지 않도록 스텐실 브릿지(Stencil Bridge) 처리되어 깔끔하게 잘립니다.</p>
+              </div>
+            </li>
+            <li class="feature-item">
+              <div class="feature-icon">🐻</div>
+              <div class="feature-text">
+                <h4>동화 스토리 4면 실루엣 컷아웃</h4>
+                <p>① 등불을 든 아기곰 ② 아기돼지와 부엉이 ③ 숲속 오두막과 달님 ④ 토끼와 다람쥐</p>
+              </div>
+            </li>
+            <li class="feature-item">
+              <div class="feature-icon">🕯️</div>
+              <div class="feature-text">
+                <h4>LED 티라이트 안전 거치 바닥</h4>
+                <p>표준 LED 캔들(지름 38mm)이 쏙 들어가 바닥 스위치를 언제든 켜고 끌 수 있는 기능형 베이스.</p>
+              </div>
+            </li>
+            <li class="feature-item">
+              <div class="feature-icon">📐</div>
+              <div class="feature-text">
+                <h4>Cricut Score(접는선) 레이어 완벽 분리</h4>
+                <p>빨간 점선은 Score 휠/스타일러스로, 검정 실선은 Basic Cut으로 원클릭 세팅 가능!</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Download Buttons -->
+        <div>
+          <div style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 8px;">
+            📥 크리컷 SVG 파일 즉시 열기 / 다운로드
+          </div>
+          <div class="download-grid">
+            <a href="cricut_lantern_12x12_all_in_one.svg" download class="btn-download">
+              <div>⭐ 12x12 올인원 SVG</div>
+              <span class="btn-sub">12x12 매트 1장에 전체 부품 컷팅</span>
+            </a>
+            <a href="cricut_lantern_roof_and_base.svg" download class="btn-download btn-secondary">
+              <div>🏛️ 지붕 & 바닥판 SVG</div>
+              <span class="btn-sub">피라미드 지붕 + 티라이트 베이스</span>
+            </a>
+            <a href="cricut_lantern_letter_part1.svg" download class="btn-download btn-secondary">
+              <div>📄 레터/A4 분할 Part 1</div>
+              <span class="btn-sub">아기곰 & 돼지 (일반 복사지 크기)</span>
+            </a>
+            <a href="cricut_lantern_letter_part2.svg" download class="btn-download btn-secondary">
+              <div>📄 레터/A4 분할 Part 2</div>
+              <span class="btn-sub">오두막 & 토끼 (일반 복사지 크기)</span>
+            </a>
+          </div>
+          <div style="margin-top: 10px;">
+            <a href="cricut_lantern_vellum_inserts.svg" download class="btn-download btn-secondary" style="width: 100%;">
+              <div>📜 반투명 트레이싱지(Vellum) 창문 4장 SVG</div>
+              <span class="btn-sub">등불 내부에 붙여 은은한 불빛을 확산시키는 유산지 템플릿</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- CRICUT DESIGN SPACE 5-STEP GUIDE -->
+    <div class="guide-section">
+      <div class="cricut-badge">✂️ Cricut Design Space 가이드</div>
+      <h2 style="font-size: 1.6rem; margin-bottom: 0.5rem;">초보자도 5분 만에 성공하는 크리컷 컷팅법</h2>
+      <p style="color: var(--text-sub); font-size: 0.95rem;">
+        Cricut 기계(Maker, Explore, Joy Xtra 등)에서 완벽하게 잘라내기 위한 필수 팁입니다.
+      </p>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <h4>SVG 파일 업로드</h4>
+          <p>Design Space 좌측 <strong>Upload</strong> 버튼을 눌러 다운로드한 SVG 파일을 캔버스에 추가합니다.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <h4>그룹 해제 (Ungroup)</h4>
+          <p>캔버스에 올린 도안을 선택한 후 우측 레이어 패널 상단의 <strong>Ungroup</strong>을 클릭하여 레이어를 분리합니다.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <h4>Score(접는선) 변경</h4>
+          <p>빨간색 점선으로 된 <strong>SCORE-LINES</strong> 레이어를 선택하고, 상단 Operation을 <strong>Basic Cut ➜ Score</strong>로 변경합니다.</p>
+          <div class="highlight-box">
+            💡 스코어링 휠 또는 스코어링 스타일러스 도구를 준비해주세요!
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <h4>전체 선택 후 Attach (붙이기)</h4>
+          <p>전체 레이어를 마우스로 드래그하여 선택한 뒤, 우측 하단의 <strong>Attach</strong> 버튼을 반드시 눌러줍니다.</p>
+          <div class="highlight-box">
+            ⚠️ Attach를 안 누르면 자르는 선과 접는 선이 매트에서 제각각 분리됩니다!
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">5</div>
+          <h4>Make It & 조립 시작!</h4>
+          <p><strong>Make It</strong>을 누르고 카드스톡 재질(65lb~80lb Medium Cardstock 권장)을 선택하여 커팅을 진행합니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 PANELS DETAILS -->
+    <div class="panels-section">
+      <div class="section-title">
+        <span></span>
+        랜턴 4개 면 구성 안내 (양 끝 고정 + 중간 2면 자유 디자인)
+      </div>
+      <p style="color: var(--text-sub); font-size: 0.95rem;">
+        원하시는 대로 양 끝의 메인 디자인(Ellie & 오두막)은 그대로 두고, 중간 2면은 직접 크리컷/드로잉으로 꾸미실 수 있도록 빈 캔버스로 구성했습니다!
+      </p>
+
+      <div class="panels-grid">
+        <div class="story-card">
+          <div class="story-card-icon">👑✨</div>
+          <h4>1면: ✦ Ellie ✦ 메인 네임</h4>
+          <p>화려한 별빛 보태니컬 아치 창문과 중앙 'Ellie' 네임 각인 (안쪽 종이가 안 떨어지는 스텐실 브릿지 안심 설계)</p>
+          <span class="ellie-badge">유지: ✦ Ellie ✦</span>
+        </div>
+
+        <div class="story-card" style="border: 1px dashed var(--accent);">
+          <div class="story-card-icon">🔲✂️</div>
+          <h4>2면: 오픈 윈도우 박스 ①</h4>
+          <p>양 끝면과 정확히 동일한 크기(43×73mm)와 아치 형태의 윈도우 박스가 깔끔하게 컷아웃된 면입니다. 원하는 디자인을 채워 넣을 수 있습니다.</p>
+          <span class="ellie-badge" style="background: rgba(74, 222, 128, 0.15); color: #4ade80;">윈도우 박스 컷아웃</span>
+        </div>
+
+        <div class="story-card" style="border: 1px dashed var(--accent);">
+          <div class="story-card-icon">🔲🎨</div>
+          <h4>3면: 오픈 윈도우 박스 ②</h4>
+          <p>양 끝면과 정확히 동일한 크기와 아치 형태의 윈도우 박스가 깔끔하게 컷아웃된 면입니다. 반투명 트레이싱지를 대거나 실루엣을 배치해보세요.</p>
+          <span class="ellie-badge" style="background: rgba(74, 222, 128, 0.15); color: #4ade80;">윈도우 박스 컷아웃</span>
+        </div>
+
+        <div class="story-card">
+          <div class="story-card-icon">🏡🌲</div>
+          <h4>4면: 숲속 아늑한 오두막</h4>
+          <p>마음에 들어 하신 따뜻한 불빛의 4칸 창문과 문, 침엽수림 실루엣 디자인 그대로 유지되었습니다.</p>
+          <span class="ellie-badge">유지: ✦ Cozy Cabin ✦</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2D SVG CUTOUT PREVIEW -->
+    <div class="preview-section">
+      <div class="section-title">
+        <span></span>
+        실제 2D 커팅 도안 미리보기
+      </div>
+      
+      <div class="tab-bar">
+        <button class="tab-btn active" data-file="cricut_lantern_12x12_all_in_one.svg">⭐ 12x12 올인원 도안</button>
+        <button class="tab-btn" data-file="cricut_lantern_roof_and_base.svg">🏛️ 지붕 & 바닥판</button>
+        <button class="tab-btn" data-file="cricut_lantern_letter_part1.svg">📄 레터 분할 Part 1</button>
+        <button class="tab-btn" data-file="cricut_lantern_letter_part2.svg">📄 레터 분할 Part 2</button>
+        <button class="tab-btn" data-file="cricut_lantern_vellum_inserts.svg">📜 반투명 창문 패널</button>
+      </div>
+
+      <div class="svg-viewer-container" id="svgPreviewBox">
+        <img id="previewImg" src="cricut_lantern_12x12_all_in_one.svg" alt="SVG Preview" />
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>도레미곰 39. 등불이 있으면 무섭지 않아 독후활동 • Ellie를 위한 3D Cricut Lantern Kit</p>
+    <p style="margin-top: 4px; opacity: 0.6;">Designed with love for Ellie's courage & sweet night dreams ✨</p>
+  </footer>
+
+  <script>
+    // 3D Lantern Rotation & Light Toggle Logic
+    const lantern = document.getElementById('lantern3d');
+    const sceneContainer = document.getElementById('sceneContainer');
+    const toggleLightBtn = document.getElementById('toggleLightBtn');
+    const autoRotateBtn = document.getElementById('autoRotateBtn');
+
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let currentRotY = 25;
+    let currentRotX = -12;
+    let autoRotate = false;
+    let animFrame;
+
+    // Mouse drag rotation
+    window.addEventListener('mousedown', (e) => {
+      if (e.target.closest('#sceneContainer') || e.target.closest('.viewer-card')) {
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        lantern.style.transition = 'none';
+        e.preventDefault();
+      }
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const deltaX = e.clientX - startX;
+      const deltaY = e.clientY - startY;
+      startX = e.clientX;
+      startY = e.clientY;
+
+      currentRotY += deltaX * 0.8;
+      currentRotX -= deltaY * 0.45;
+      currentRotX = Math.max(-50, Math.min(35, currentRotX)); // limit X tilt
+
+      updateLanternTransform();
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        lantern.style.transition = 'transform 0.1s ease-out';
+      }
+    });
+
+    // Touch support for mobile/tablets
+    window.addEventListener('touchstart', (e) => {
+      if (e.target.closest('#sceneContainer')) {
+        isDragging = true;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        lantern.style.transition = 'none';
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const deltaX = e.touches[0].clientX - startX;
+      const deltaY = e.touches[0].clientY - startY;
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+
+      currentRotY += deltaX * 0.8;
+      currentRotX -= deltaY * 0.45;
+      currentRotX = Math.max(-50, Math.min(35, currentRotX));
+
+      updateLanternTransform();
+    }, { passive: true });
+
+    window.addEventListener('touchend', () => {
+      if (isDragging) {
+        isDragging = false;
+        lantern.style.transition = 'transform 0.1s ease-out';
+      }
+    });
+
+    function updateLanternTransform() {
+      lantern.style.transform = `rotateX(${currentRotX}deg) rotateY(${currentRotY}deg)`;
+    }
+
+    // Toggle Candle Light
+    toggleLightBtn.addEventListener('click', () => {
+      const isLit = sceneContainer.classList.toggle('lit');
+      if (isLit) {
+        toggleLightBtn.classList.add('active');
+        toggleLightBtn.innerHTML = '💡 등불 켜기 (ON)';
+      } else {
+        toggleLightBtn.classList.remove('active');
+        toggleLightBtn.innerHTML = '🌑 등불 끄기 (OFF)';
+      }
+    });
+
+    // Auto Rotate
+    autoRotateBtn.addEventListener('click', () => {
+      autoRotate = !autoRotate;
+      autoRotateBtn.classList.toggle('active', autoRotate);
+      if (autoRotate) {
+        animateRotation();
+      } else {
+        cancelAnimationFrame(animFrame);
+      }
+    });
+
+    function animateRotation() {
+      if (autoRotate && !isDragging) {
+        currentRotY += 0.4;
+        updateLanternTransform();
+      }
+      animFrame = requestAnimationFrame(animateRotation);
+    }
+
+    // Tab switching for 2D previews
+    const tabs = document.querySelectorAll('.tab-btn');
+    const previewImg = document.getElementById('previewImg');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const file = tab.getAttribute('data-file');
+        previewImg.src = file;
+      });
+    });
+  </script>
+</body>
+</html>
