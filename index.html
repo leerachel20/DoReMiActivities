@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>도레미곰 독후활동 스튜디오 | DoReMi Gom Activity Portal</title>
+  <meta name="description" content="도레미곰 그림책 독후활동 컬렉션: 1. 톡톡톡 괜찮아(우산 오려붙이기), 2. 동물도미노(3D 입체 블록 접기), 39. 등불이 있으면 무섭지 않아(크리컷 페이퍼 랜턴)">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Outfit:wght@400;500;600;700;800&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --bg-nav: rgba(15, 23, 42, 0.92);
+      --border-subtle: rgba(255, 255, 255, 0.1);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      
+      /* Theme accents */
+      --tab1-color: #38bdf8;
+      --tab1-glow: rgba(56, 189, 248, 0.25);
+      --tab2-color: #fb923c;
+      --tab2-glow: rgba(251, 146, 60, 0.25);
+      --tab3-color: #facc15;
+      --tab3-glow: rgba(250, 204, 21, 0.25);
+      
+      --header-h: 68px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Outfit', 'Gowun Dodum', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+    }
+
+    /* Master Top Bar */
+    .master-header {
+      height: var(--header-h);
+      background: var(--bg-nav);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.25rem;
+      z-index: 1000;
+      position: relative;
+    }
+
+    /* Logo & Branding */
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: fit-content;
+    }
+
+    .brand-icon {
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 2px 8px rgba(250, 204, 21, 0.4));
+      animation: floatSlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatSlow {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-3px); }
+    }
+
+    .brand-title-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ffffff 40%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .brand-subtitle {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    /* 3 Main Navigation Tabs */
+    .tabs-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(30, 41, 59, 0.6);
+      padding: 5px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3);
+      max-width: 650px;
+    }
+
+    .portal-tab-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 9999px;
+      border: none;
+      background: transparent;
+      color: #94a3b8;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .portal-tab-btn:hover {
+      color: #f1f5f9;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .tab-icon {
+      font-size: 1.15rem;
+    }
+
+    .tab-num {
+      font-size: 0.75rem;
+      padding: 1px 6px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      font-weight: 700;
+    }
+
+    /* Active Tab States */
+    .portal-tab-btn.active[data-target="toktok"] {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.22), rgba(2, 132, 199, 0.35));
+      color: #38bdf8;
+      box-shadow: 0 4px 14px var(--tab1-glow), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(56, 189, 248, 0.5);
+    }
+
+    .portal-tab-btn.active[data-target="domino"] {
+      background: linear-gradient(135deg, rgba(251, 146, 60, 0.22), rgba(234, 88, 12, 0.35));
+      color: #fb923c;
+      box-shadow: 0 4px 14px var(--tab2-glow), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(251, 146, 60, 0.5);
+    }
+
+    .portal-tab-btn.active[data-target="lantern"] {
+      background: linear-gradient(135deg, rgba(250, 204, 21, 0.22), rgba(202, 138, 4, 0.35));
+      color: #facc15;
+      box-shadow: 0 4px 14px var(--tab3-glow), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(250, 204, 21, 0.5);
+    }
+
+    /* Header Right Actions */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-popout {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #e2e8f0;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-popout:hover {
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* Fullscreen Viewport for Iframes */
+    .app-viewport {
+      width: 100%;
+      height: calc(100vh - var(--header-h));
+      position: relative;
+      background: #000;
+    }
+
+    .tab-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    .tab-iframe.active {
+      display: block;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 900px) {
+      .master-header {
+        height: auto;
+        padding: 10px 12px;
+        flex-direction: column;
+        gap: 8px;
+      }
+      :root {
+        --header-h: 110px;
+      }
+      .tabs-nav {
+        width: 100%;
+        overflow-x: auto;
+        justify-content: flex-start;
+      }
+      .brand-subtitle, .btn-popout span.label-text {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Master Top Navigation Bar -->
+  <header class="master-header">
+    
+    <!-- Branding -->
+    <div class="brand-section">
+      <div class="brand-icon">🐻</div>
+      <div class="brand-title-group">
+        <h1 class="brand-title">도레미곰 독후활동 스튜디오</h1>
+        <span class="brand-subtitle">엄마표 프리미엄 홈스쿨링 활동지 컬렉션 • Made by EMom-NJ</span>
+      </div>
+    </div>
+
+    <!-- 3 Core Navigation Tabs -->
+    <nav class="tabs-nav" role="tablist">
+      <button class="portal-tab-btn active" data-target="toktok" id="tabBtnToktok" role="tab" aria-selected="true">
+        <span class="tab-icon">🌧️</span>
+        <span class="tab-name">1. 톡톡톡 괜찮아</span>
+        <span class="tab-num">8P</span>
+      </button>
+
+      <button class="portal-tab-btn" data-target="domino" id="tabBtnDomino" role="tab" aria-selected="false">
+        <span class="tab-icon">🎲</span>
+        <span class="tab-name">2. 동물도미노</span>
+        <span class="tab-num">15P</span>
+      </button>
+
+      <button class="portal-tab-btn" data-target="lantern" id="tabBtnLantern" role="tab" aria-selected="false">
+        <span class="tab-icon">🏮</span>
+        <span class="tab-name">39. 등불이 있으면 무섭지 않아</span>
+        <span class="tab-num">Cricut</span>
+      </button>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="header-actions">
+      <a id="popoutLink" href="1_toktok/index.html" target="_blank" rel="noopener" class="btn-popout" title="새 창에서 단독 전체화면으로 열기 (인쇄 및 작업용)">
+        <span>↗️</span>
+        <span class="label-text">새 창으로 열기</span>
+      </a>
+    </div>
+
+  </header>
+
+  <!-- Main Viewport containing the 3 Sub-Applications -->
+  <main class="app-viewport">
+    <!-- Tab 1: 톡톡톡 괜찮아 -->
+    <iframe 
+      id="frame-toktok" 
+      src="1_toktok/index.html" 
+      class="tab-iframe active" 
+      title="1. 톡톡톡 괜찮아 독후활동"
+      allow="autoplay; camera; microphone">
+    </iframe>
+
+    <!-- Tab 2: 동물도미노 -->
+    <iframe 
+      id="frame-domino" 
+      src="2_domino/index.html" 
+      class="tab-iframe" 
+      title="2. 동물도미노 독후활동"
+      allow="autoplay; camera; microphone">
+    </iframe>
+
+    <!-- Tab 3: 등불이 있으면 무섭지 않아 (3D Cricut Lantern) -->
+    <iframe 
+      id="frame-lantern" 
+      src="39_lantern/index.html" 
+      class="tab-iframe" 
+      title="39. 등불이 있으면 무섭지 않아 독후활동"
+      allow="autoplay; camera; microphone">
+    </iframe>
+  </main>
+
+  <!-- Portal Logic -->
+  <script>
+    const tabButtons = document.querySelectorAll('.portal-tab-btn');
+    const iframes = {
+      toktok: document.getElementById('frame-toktok'),
+      domino: document.getElementById('frame-domino'),
+      lantern: document.getElementById('frame-lantern')
+    };
+    const popoutLink = document.getElementById('popoutLink');
+
+    const urls = {
+      toktok: '1_toktok/index.html',
+      domino: '2_domino/index.html',
+      lantern: '39_lantern/index.html'
+    };
+
+    function switchTab(targetId) {
+      if (!iframes[targetId]) return;
+
+      // Update Tab Button styles
+      tabButtons.forEach(btn => {
+        const isMatch = btn.getAttribute('data-target') === targetId;
+        btn.classList.toggle('active', isMatch);
+        btn.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+      });
+
+      // Update Iframe visibility (preserves DOM state & active games!)
+      Object.keys(iframes).forEach(key => {
+        iframes[key].classList.toggle('active', key === targetId);
+      });
+
+      // Update Popout Link
+      popoutLink.href = urls[targetId];
+
+      // Update Hash
+      if (window.location.hash !== `#${targetId}`) {
+        history.replaceState(null, '', `#${targetId}`);
+      }
+    }
+
+    // Attach Click Events
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-target');
+        switchTab(target);
+      });
+    });
+
+    // Handle initial URL hash on load (e.g. #domino or #lantern)
+    function initFromHash() {
+      const hash = window.location.hash.replace('#', '').toLowerCase();
+      if (hash && iframes[hash]) {
+        switchTab(hash);
+      } else {
+        switchTab('toktok');
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', initFromHash);
+    window.addEventListener('hashchange', initFromHash);
+  </script>
+
+</body>
+</html>
