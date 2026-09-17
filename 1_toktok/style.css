@@ -1,0 +1,981 @@
+/* =========================================================
+   《1. 톡톡톡 괜찮아》 인터랙티브 독후활동 키트
+   Design System & Enhanced Rainy Picture Book Aesthetic
+   Author: Made by EMom-NJ
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Round+Gothic:wght@400;700;800&family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+
+:root {
+  --primary: #3182ce;
+  --primary-light: #ebf8ff;
+  --primary-dark: #2b6cb0;
+  --rain-blue: #3182ce;
+  --rain-glow: #63b3ed;
+  --rain-light: #e6f6ff;
+  --forest-green: #38a169;
+  --forest-soft: #f0fff4;
+  --warm-orange: #dd6b20;
+  --warm-yellow: #f6ad55;
+  --card-border: #bee3f8;
+  --text-main: #2d3748;
+  --text-muted: #718096;
+  --border-line: #e2e8f0;
+  --shadow-card: 0 10px 25px -5px rgba(49, 130, 206, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --shadow-hover: 0 16px 30px -8px rgba(49, 130, 206, 0.2);
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 8px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: 'Nanum Round Gothic', 'Noto Sans KR', sans-serif;
+  background: linear-gradient(180deg, #e8f4fc 0%, #f4f8fa 50%, #edf7f2 100%);
+  color: var(--text-main);
+  min-height: 100vh;
+  line-height: 1.6;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Rain Canvas */
+.rain-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.95;
+}
+
+/* Header */
+header.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 2px solid #bee3f8;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 16px rgba(49, 130, 206, 0.06);
+}
+
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-badge {
+  background: linear-gradient(135deg, #3182ce, #2b6cb0);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.brand-title {
+  font-family: 'Gaegu', cursive;
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #2b6cb0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-title span.author-tag {
+  font-family: 'Nanum Round Gothic', sans-serif;
+  font-size: 0.82rem;
+  color: #2b6cb0;
+  font-weight: 800;
+  background: #e6f6ff;
+  padding: 2px 10px;
+  border-radius: 12px;
+  border: 1px solid #bee3f8;
+}
+
+/* Controls & Buttons */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rain-control-group {
+  display: flex;
+  align-items: center;
+  background: #f0f7ff;
+  padding: 3px 6px;
+  border-radius: 20px;
+  border: 1px solid #cce7ff;
+  gap: 4px;
+}
+
+.rain-btn {
+  background: none;
+  border: none;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #4a5568;
+  padding: 4px 8px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.rain-btn:hover {
+  background: #e2e8f0;
+}
+
+.rain-btn.active {
+  background: #3182ce;
+  color: white;
+}
+
+.btn {
+  font-family: 'Nanum Round Gothic', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(49, 130, 206, 0.45);
+}
+
+.btn-secondary {
+  background: white;
+  color: #4a5568;
+  border: 1.5px solid #cbd5e0;
+}
+
+.btn-secondary:hover {
+  background: #f7fafc;
+  border-color: #a0aec0;
+}
+
+.btn-audio {
+  background: #e6f6ff;
+  color: #2b6cb0;
+  border: 1px solid #bee3f8;
+}
+
+.btn-audio.playing {
+  background: #3182ce;
+  color: white;
+}
+
+/* Nav Tabs */
+.nav-tabs-wrapper {
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  position: sticky;
+  top: 65px;
+  z-index: 90;
+}
+
+.nav-tabs {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 8px;
+  padding: 8px 16px;
+  overflow-x: auto;
+}
+
+.tab-btn {
+  font-family: 'Nanum Round Gothic', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  background: none;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 12px;
+  color: #718096;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tab-btn:hover {
+  background: #f0f7ff;
+  color: #3182ce;
+}
+
+.tab-btn.active {
+  background: #ebf8ff;
+  color: #2b6cb0;
+  box-shadow: inset 0 0 0 1.5px #bee3f8;
+}
+
+/* Main Container */
+main.main-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1240px;
+  margin: 20px auto 80px;
+  padding: 0 16px;
+}
+
+.tab-pane {
+  display: none;
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Banner */
+.hero-banner {
+  background: linear-gradient(135deg, #e6f6ff 0%, #f0fff4 100%);
+  border: 1.5px solid #bee3f8;
+  border-radius: var(--radius-lg);
+  padding: 22px 28px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow-card);
+}
+
+.hero-text h2 {
+  font-family: 'Gaegu', cursive;
+  font-size: 2.1rem;
+  color: #2b6cb0;
+  margin-bottom: 4px;
+}
+
+.hero-text p {
+  color: #4a5568;
+  font-size: 1rem;
+}
+
+.hero-tags {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.pill-tag {
+  background: white;
+  border: 1px solid #bee3f8;
+  color: #2b6cb0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 14px;
+}
+
+/* Print Controls */
+.print-controls-bar {
+  background: white;
+  padding: 14px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.page-jump-selector {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.page-chip {
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  padding: 5px 11px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #4a5568;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.page-chip:hover {
+  background: #ebf8ff;
+  border-color: #bee3f8;
+  color: #2b6cb0;
+}
+
+.print-sheets-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+}
+
+/* =========================================================
+   A4 SHEET DESIGN SYSTEM (Zero Overflow Guarantee)
+   ========================================================= */
+.a4-sheet {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 8mm 10mm;
+  background: white;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+  border-radius: 4px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.sheet-header {
+  border-bottom: 2px dashed #90cdf4;
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.sheet-title-group h3 {
+  font-family: 'Gaegu', cursive;
+  font-size: 1.6rem;
+  color: #2b6cb0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sheet-title-group p.subtext {
+  font-size: 0.82rem;
+  color: #718096;
+  font-weight: 500;
+}
+
+.sheet-meta-badge {
+  text-align: right;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #4a5568;
+}
+
+.sheet-meta-badge .page-number {
+  background: #ebf8ff;
+  color: #2b6cb0;
+  padding: 2px 9px;
+  border-radius: 10px;
+  display: inline-block;
+  margin-bottom: 2px;
+  border: 1px solid #bee3f8;
+}
+
+.instruction-strip {
+  background: #f0f9ff;
+  border-left: 4px solid #3182ce;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  color: #2c5282;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Mandatory Footer on Every Sheet */
+.sheet-footer {
+  margin-top: auto;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.76rem;
+  color: #718096;
+  font-weight: 600;
+}
+
+.sheet-footer .brand-signature {
+  font-weight: 800;
+  color: #2b6cb0;
+  letter-spacing: 0.4px;
+}
+
+/* =========================================================
+   SHEETS 1 & 2: CUT & PASTE UMBRELLAS ON ANIMALS
+   ========================================================= */
+.paste-dual-grid {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 12px;
+  flex: 1;
+}
+
+.paste-animal-card {
+  border: 2px solid #bee3f8;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #f0f7ff 100%);
+  padding: 12px 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 18px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(49, 130, 206, 0.04);
+}
+
+.paste-animal-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 100%;
+}
+
+.paste-animal-visual img {
+  max-height: 195px;
+  max-width: 95%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08));
+}
+
+.paste-cut-piece {
+  border: 2.5px dashed #3182ce;
+  border-radius: 20px;
+  background: #ffffff;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 185px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(49, 130, 206, 0.04);
+}
+
+.paste-cut-piece img.cut-piece-img {
+  max-height: 165px;
+  max-width: 95%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08));
+}
+
+.cut-scissors-tag {
+  position: absolute;
+  top: -11px;
+  right: 14px;
+  background: #ffffff;
+  border: 1.5px dashed #3182ce;
+  color: #2b6cb0;
+  font-size: 0.74rem;
+  font-weight: 800;
+  padding: 2px 10px;
+  border-radius: 12px;
+}
+
+/* =========================================================
+   SHEET 3: 6 UMBRELLA CUT-OUT PIECES
+   ========================================================= */
+.cutout-pieces-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 12px;
+  flex: 1;
+}
+
+.cut-umbrella-card {
+  border: 2.5px dashed #90cdf4;
+  border-radius: 16px;
+  padding: 10px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.cut-umbrella-card h4 {
+  font-family: 'Gaegu', cursive;
+  font-size: 1.35rem;
+  color: #2b6cb0;
+  margin-bottom: 2px;
+}
+
+.cut-umbrella-card img {
+  max-height: 135px;
+  max-width: 95%;
+  object-fit: contain;
+  margin: 4px 0;
+}
+
+.cut-umbrella-card .paste-badge {
+  background: #ebf8ff;
+  border: 1px solid #bee3f8;
+  color: #2b6cb0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 10px;
+}
+
+/* =========================================================
+   SHEET 4: LINE MATCHING (선 긋기) - BOXLESS & WIDE CENTER
+   ========================================================= */
+.line-matching-sheet-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  flex: 1;
+  padding: 10px 4px;
+  position: relative;
+}
+
+.matching-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 155px;
+  height: 100%;
+  gap: 16px;
+}
+
+.match-item-row-clean {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex: 1;
+}
+
+.matching-col.left-col .match-item-row-clean {
+  justify-content: flex-start;
+}
+
+.matching-col.right-col .match-item-row-clean {
+  justify-content: flex-end;
+}
+
+.match-item-row-clean img {
+  max-height: 120px;
+  max-width: 115px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08));
+}
+
+.match-dot-node {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #3182ce;
+  border: 3.5px solid white;
+  box-shadow: 0 0 0 2.5px #3182ce;
+  flex-shrink: 0;
+  margin: 0 10px;
+}
+
+.matching-center-drawing-zone {
+  flex: 1;
+  margin: 0 14px;
+  position: relative;
+  /* Completely open white paper space for child pencil drawing */
+}
+
+/* =========================================================
+   SHEET 5: SILHOUETTE MATCHING (실루엣 퀴즈)
+   ========================================================= */
+.silhouette-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  flex: 1;
+}
+
+.silhouette-card {
+  border: 2px solid #cbd5e0;
+  border-radius: 14px;
+  background: #fffdfa;
+  padding: 10px 14px;
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.silhouette-visual-box {
+  border: 2px dashed #a0aec0;
+  border-radius: 12px;
+  height: 105px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.silhouette-visual-box img {
+  max-height: 85px;
+  max-width: 85%;
+  object-fit: contain;
+  filter: brightness(0) opacity(0.85);
+}
+
+.silhouette-info h4 {
+  font-family: 'Gaegu', cursive;
+  font-size: 1.25rem;
+  color: #2b6cb0;
+  margin-bottom: 4px;
+}
+
+.silhouette-info p {
+  font-size: 0.78rem;
+  color: #4a5568;
+  line-height: 1.4;
+}
+
+.silhouette-info .match-hint-tag {
+  display: inline-block;
+  background: #feebc8;
+  border: 1px solid #fbd38d;
+  color: #c05621;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin-top: 6px;
+}
+
+/* =========================================================
+   SHEET 6: MOTOR SKILLS (운필력 빗방울 길 따라가기)
+   ========================================================= */
+.path-tracing-container {
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  gap: 10px;
+  flex: 1;
+}
+
+.trace-row {
+  border: 1.5px solid #bee3f8;
+  border-radius: 14px;
+  background: #f7fafc;
+  padding: 6px 14px;
+  display: grid;
+  grid-template-columns: 70px 1fr 70px;
+  align-items: center;
+  gap: 10px;
+}
+
+.trace-start, .trace-end {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.trace-start img, .trace-end img {
+  height: 48px;
+  object-fit: contain;
+}
+
+.trace-start span, .trace-end span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #4a5568;
+  margin-top: 2px;
+}
+
+.svg-trace-path {
+  width: 100%;
+  height: 50px;
+}
+
+/* =========================================================
+   SHEET 7: CREATIVE DRAWING (나만의 상상 자연 우산)
+   ========================================================= */
+.creative-drawing-layout {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 12px;
+  flex: 1;
+}
+
+.drawing-canvas-board {
+  border: 3px dashed #63b3ed;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #f0f7ff 100%);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.canvas-prompt-header {
+  text-align: center;
+}
+
+.canvas-prompt-header h4 {
+  font-family: 'Gaegu', cursive;
+  font-size: 1.45rem;
+  color: #2b6cb0;
+}
+
+.drawing-animal-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.drawing-animal-bottom img {
+  max-height: 130px;
+  object-fit: contain;
+}
+
+.child-statement-banner {
+  background: white;
+  border: 2px solid #bee3f8;
+  border-radius: 12px;
+  padding: 8px 14px;
+  text-align: center;
+  font-family: 'Gaegu', cursive;
+  font-size: 1.25rem;
+  color: #2b6cb0;
+}
+
+.drawing-ideas-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.idea-prompt-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  background: #ffffff;
+}
+
+.idea-prompt-card strong {
+  font-family: 'Gaegu', cursive;
+  font-size: 1.15rem;
+  color: #dd6b20;
+  display: block;
+}
+
+.idea-prompt-card p {
+  font-size: 0.75rem;
+  color: #4a5568;
+}
+
+/* =========================================================
+   SHEET 8: FULL A4 COLORING POSTER
+   ========================================================= */
+.full-coloring-layout {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 2px solid #cbd5e0;
+  border-radius: 16px;
+  padding: 12px;
+  background: #ffffff;
+}
+
+.full-coloring-img-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.full-coloring-img-wrapper img {
+  max-height: 235mm;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.coloring-prompt-strip {
+  text-align: center;
+  font-family: 'Gaegu', cursive;
+  font-size: 1.35rem;
+  color: #2b6cb0;
+  background: #f7fafc;
+  padding: 6px 12px;
+  border-radius: 10px;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* =========================================================
+   INTERACTIVE CANVAS LINE GAME
+   ========================================================= */
+.interactive-line-game-board {
+  position: relative;
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 2px solid #bee3f8;
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+  margin-top: 16px;
+}
+
+#lineGameCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+  cursor: crosshair;
+  z-index: 10;
+}
+
+.game-columns-container {
+  display: grid;
+  grid-template-columns: 240px 1fr 240px;
+  min-height: 420px;
+  align-items: center;
+  position: relative;
+  z-index: 5;
+}
+
+.game-card-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.game-item-card {
+  background: #f7fafc;
+  border: 2px solid #bee3f8;
+  border-radius: 14px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  user-select: none;
+  transition: all 0.2s;
+}
+
+.game-item-card.connected {
+  border-color: #38a169;
+  background: #f0fff4;
+}
+
+.game-item-card img {
+  height: 55px;
+  object-fit: contain;
+}
+
+/* =========================================================
+   PRINT STYLES
+   ========================================================= */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 10pt;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .app-header,
+  .nav-tabs-wrapper,
+  .hero-banner,
+  .print-controls-bar,
+  .rain-canvas,
+  #tab-line-game,
+  #tab-paste-preview,
+  #tab-guide {
+    display: none !important;
+  }
+
+  main.main-content {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #tab-print {
+    display: block !important;
+  }
+
+  .print-sheets-container {
+    display: block !important;
+    gap: 0 !important;
+  }
+
+  .a4-sheet {
+    width: 100% !important;
+    min-height: 280mm !important;
+    max-height: 280mm !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    page-break-after: always !important;
+    page-break-inside: avoid !important;
+    break-after: page !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+  }
+
+  .a4-sheet:last-child {
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}

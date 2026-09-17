@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>도레미곰 《1. 톡톡톡 괜찮아》 독후활동 키트 | Made by EMom-NJ</title>
+  <meta name="description" content="도레미곰 1. 톡톡톡 괜찮아 엄마표 독후활동지 8종 세트: 우산 오려 붙이기, 선 잇기, 실루엣 퀴즈, 빗방울 길 운필력, 상상 우산 그리기, 명장면 대형 색칠 포스터">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Dynamic Rain Animation Canvas with Ripples & Mouse Trail -->
+  <canvas id="rainCanvas" class="rain-canvas"></canvas>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="brand-group">
+      <span class="brand-badge">도레미곰 독후활동 #2</span>
+      <h1 class="brand-title">
+        🌧️ 1. 톡톡톡 괜찮아!
+        <span class="author-tag">Made by EMom-NJ</span>
+      </h1>
+    </div>
+
+    <div class="header-actions">
+      <!-- Rain Intensity Control -->
+      <div class="rain-control-group" title="배경 빗방울 강도 조절">
+        <span style="font-size: 0.75rem; color: #4a5568; margin: 0 4px; font-weight:700;">비 세기:</span>
+        <button class="rain-btn" data-intensity="light">💧 보슬비</button>
+        <button class="rain-btn active" data-intensity="medium">🌧️ 보통</button>
+        <button class="rain-btn" data-intensity="heavy">⛈️ 세찬 비</button>
+      </div>
+
+      <button id="audioToggleBtn" class="btn btn-audio" title="톡톡톡 빗소리 배경음악">
+        <span id="audioIcon">🌧️</span> <span id="audioText">빗소리 켜기</span>
+      </button>
+
+      <button onclick="window.print()" class="btn btn-primary">
+        🖨️ 활동지 8장 바로 인쇄
+      </button>
+    </div>
+  </header>
+
+  <!-- Top Navigation Tabs -->
+  <nav class="nav-tabs-wrapper">
+    <div class="nav-tabs">
+      <button class="tab-btn active" data-tab="tab-print">
+        📄 개편된 활동지 인쇄 (8P 풀세트)
+      </button>
+      <button class="tab-btn" data-tab="tab-line-game">
+        ✏️ 인터랙티브 선 잇기 게임 (화면 체험)
+      </button>
+      <button class="tab-btn" data-tab="tab-paste-preview">
+        ✂️ 디지털 우산 씌우기 (오려 붙이기 체험)
+      </button>
+      <button class="tab-btn" data-tab="tab-guide">
+        💡 엄마표 독후 가이드 (EMom-NJ)
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+
+    <!-- =========================================================
+         TAB 1: 8-PAGE PRINTABLE ACTIVITY SHEETS
+         ========================================================= -->
+    <section id="tab-print" class="tab-pane active">
+      <div class="hero-banner">
+        <div class="hero-text">
+          <h2>🌧️ 엄마와 함께하는 《1. 톡톡톡 괜찮아》 활동지 8종</h2>
+          <p>
+            동물 친구들과 자연 우산 일러스트의 디테일을 완벽하게 살렸습니다. 
+            가위로 우산을 오려 씌워주고, 시원하게 선을 긋고, 대형 명장면을 색칠하며 즐겨보세요!
+          </p>
+          <div class="hero-tags">
+            <span class="pill-tag">✂️ 우산 오려 붙이기 (1P, 2P, 3P)</span>
+            <span class="pill-tag">✏️ 동물과 우산 선 잇기 (4P)</span>
+            <span class="pill-tag">🔍 그림자 실루엣 퀴즈 (5P)</span>
+            <span class="pill-tag">💧 빗방울 길 운필력 (6P)</span>
+            <span class="pill-tag">🎨 상상 우산 드로잉 (7P)</span>
+            <span class="pill-tag">🖍️ 동화 명장면 대형 색칠 (8P)</span>
+          </div>
+        </div>
+        <button onclick="window.print()" class="btn btn-primary" style="padding: 12px 24px; font-size: 1.05rem;">
+          🖨️ A4 8장 전체 인쇄
+        </button>
+      </div>
+
+      <!-- Quick Jump Toolbar -->
+      <div class="print-controls-bar">
+        <span style="font-weight: 700; color: #4a5568;">📄 페이지 바로가기:</span>
+        <div class="page-jump-selector">
+          <a href="#sheet-1" class="page-chip">1P 생쥐·토끼 우산 씌우기</a>
+          <a href="#sheet-2" class="page-chip">2P 너구리·여우·곰 우산 씌우기</a>
+          <a href="#sheet-3" class="page-chip">3P 우산 6종 오리기 조각</a>
+          <a href="#sheet-4" class="page-chip">4P 동물·우산 선 긋기</a>
+          <a href="#sheet-5" class="page-chip">5P 우산 그림자 실루엣</a>
+          <a href="#sheet-6" class="page-chip">6P 빗방울 길 운필력</a>
+          <a href="#sheet-7" class="page-chip">7P 상상 우산 그리기</a>
+          <a href="#sheet-8" class="page-chip">8P 명장면 대형 색칠 포스터</a>
+        </div>
+      </div>
+
+      <div class="print-sheets-container">
+
+        <!-- ==================== SHEET 1: PASTE UMBRELLA 1 (MOUSE & RABBIT) ==================== -->
+        <article id="sheet-1" class="a4-sheet">
+          <header class="sheet-header">
+            <div class="sheet-title-group">
+              <h3>🐭🐰 [오려 붙이기 1] 꼬마 생쥐와 토끼에게 우산을 씌워줘요!</h3>
+              <p class="subtext">"비가 톡톡톡 내려요. 동물 친구들에게 딱 맞는 우산을 오려 씌워주세요!"</p>
+            </div>
+            <div class="sheet-meta-badge">
+              <span class="page-number">Page 1 / 8</span>
+              <div>도레미곰 《1. 톡톡톡 괜찮아》</div>
+            </div>
+          </header>
+
+          <div class="instruction-strip">
+            <span>✂️ 오른쪽의 <strong>[노란 버섯 우산]과 [싱싱 당근 잎 우산]</strong>을 가위로 오려 왼쪽의 동물 친구 머리 위에 풀로 쏙 씌워주세요!</span>
+            <span style="font-weight:800; color:#3182ce;">소근육 조작 &amp; 언어 상호작용</span>
+          </div>
+
+          <div class="paste-dual-grid">
+            <!-- Mouse Zone -->
+            <div class="paste-animal-card">
+              <div class="paste-animal-visual">
+                <img src="assets/rain_animal_1_mouse.png" alt="비를 맞는 아기 생쥐">
+              </div>
+              <div class="paste-cut-piece">
+                <div class="cut-scissors-tag">✂️ 오려서 붙이기</div>
+                <img src="assets/det_umbrella_1_mushroom.png" alt="노란 버섯 우산" class="cut-piece-img">
+              </div>
+            </div>
+
+            <!-- Rabbit Zone -->
+            <div class="paste-animal-card">
+              <div class="paste-animal-visual">
+                <img src="assets/rain_animal_2_rabbit.png" alt="비를 맞는 토끼">
+              </div>
+              <div class="paste-cut-piece">
+                <div class="cut-scissors-tag">✂️ 오려서 붙이기</div>
+                <img src="assets/det_umbrella_2_carrot.png" alt="싱싱 당근 잎 우산" class="cut-piece-img">
+              </div>
+            </div>
+          </div>
+
+          <footer class="sheet-footer">
+            <span>도서출판 그레이트북스 《1. 톡톡톡 괜찮아》 독후활동지 · 배율: 100% 실물 크기 인쇄</span>
+            <span class="brand-signature">Made by EMom-NJ</span>
+          </footer>
+        </article>
+
+        <!-- ==================== SHEET 2: PASTE UMBRELLA 2 (RACCOON/FOX & BEAR) ==================== -->
+        <article id="sheet-2" class="a4-sheet">
+          <header class="sheet-header">
+            <div class="sheet-title-group">
+              <h3>🦝🦊🐻 [오려 붙이기 2] 너구리·여우와 아기곰에게 우산을 씌워줘요!</h3>
+              <p class="subtext">"친구와 함께 쓰는 우산, 키 큰 곰돌이가 번쩍 든 든든한 나무 우산을 씌워주세요!"</p>
+            </div>
+            <div class="sheet-meta-badge">
+              <span class="page-number">Page 2 / 8</span>
+              <div>도레미곰 《1. 톡톡톡 괜찮아》</div>
+            </div>
+          </header>
+
+          <div class="instruction-strip">
+            <span>✂️ 오른쪽의 <strong>[머위 나뭇잎 우산]과 [푸른 나뭇가지 우산]</strong>을 가위로 오려 왼쪽의 동물 친구 손과 머리 위에 풀로 쏙 씌워주세요!</span>
+            <span style="font-weight:800; color:#38a169;">친구 배려 &amp; 나눔 정서</span>
+          </div>
+
+          <div class="paste-dual-grid">
+            <!-- Raccoon & Fox Zone -->
+            <div class="paste-animal-card">
+              <div class="paste-animal-visual">
+                <img src="assets/rain_animal_3_raccoon_fox.png" alt="비를 맞는 너구리와 여우">
+              </div>
+              <div class="paste-cut-piece">
+                <div class="cut-scissors-tag">✂️ 오려서 붙이기</div>
+                <img src="assets/det_umbrella_3_leaf.png" alt="머위 나뭇잎 우산" class="cut-piece-img">
+              </div>
+            </div>
+
+            <!-- Bear Zone -->
+            <div class="paste-animal-card">
+              <div class="paste-animal-visual">
+                <img src="assets/rain_animal_4_bear.png" alt="비를 맞는 아기곰">
+              </div>
+              <div class="paste-cut-piece">
+                <div class="cut-scissors-tag">✂️ 오려서 붙이기</div>
+                <img src="assets/det_umbrella_4_branch.png" alt="푸른 나뭇가지 우산" class="cut-piece-img">
+              </div>
+            </div>
+          </div>
+
+          <footer class="sheet-footer">
+            <span>도서출판 그레이트북스 《1. 톡톡톡 괜찮아》 독후활동지 · 배율: 100% 실물 크기 인쇄</span>
+            <span class="brand-signature">Made by EMom-NJ</span>
+          </footer>
+        </article>
+
+        <!-- ==================== SHEET 3: 6 CUT-OUT UMBRELLA PIECES ==================== -->
+        <article id="sheet-3" class="a4-sheet">
+          <header class="sheet-header">
+            <div class="sheet-title-group">
+              <h3>✂️ [오리기 전용] 동화 속 자연 우산 6종 오리기 피스</h3>
+              <p class="subtext">가위질하기 편한 굵은 둥근 점선! 1P, 2P의 동물 친구들이나 5P 실루엣에 붙여주세요.</p>
+            </div>
+            <div class="sheet-meta-badge">
+              <span class="page-number">Page 3 / 8</span>
+              <div>도레미곰 《1. 톡톡톡 괜찮아》</div>
+            </div>
+          </header>
+
+          <div class="instruction-strip" style="background:#fffaf0; border-color:#dd6b20;">
+            <span>💡 <strong>오리기 안내:</strong> 아이와 함께 가위질 점선을 따라 오려보세요. 1P(생쥐·토끼), 2P(너구리·곰), 5P(그림자 퀴즈)에 사용됩니다.</span>
+            <span style="color:#dd6b20; font-weight:800;">가위질 집중력 쑥쑥</span>
+          </div>
+
+          <div class="cutout-pieces-grid">
+            <!-- Piece 1 -->
+            <div class="cut-umbrella-card">
+              <h4>① 노란 버섯 우산</h4>
+              <img src="assets/det_umbrella_1_mushroom.png" alt="버섯 우산">
+              <span class="paste-badge">🐭 꼬마 생쥐 우산 (1P에 쏙)</span>
+            </div>
+
+            <!-- Piece 2 -->
+            <div class="cut-umbrella-card">
+              <h4>② 싱싱 당근 잎 우산</h4>
+              <img src="assets/det_umbrella_2_carrot.png" alt="당근 우산">
+              <span class="paste-badge">🐰 보송이 토끼 우산 (1P에 쏙)</span>
+            </div>
+
+            <!-- Piece 3 -->
+            <div class="cut-umbrella-card">
+              <h4>③ 머위 나뭇잎 우산</h4>
+              <img src="assets/det_umbrella_3_leaf.png" alt="머위잎 우산">
+              <span class="paste-badge">🦝🦊 너구리와 여우 (2P에 쏙)</span>
+            </div>
+
+            <!-- Piece 4 -->
+            <div class="cut-umbrella-card">
+              <h4>④ 푸른 나뭇가지 우산</h4>
+              <img src="assets/det_umbrella_4_branch.png" alt="나뭇가지 우산">
+              <span class="paste-badge">🐻 씩씩한 아기곰 (2P에 쏙)</span>
+            </div>
+
+            <!-- Piece 5 (Bonus) -->
+            <div class="cut-umbrella-card" style="border-color:#48bb78; background:#f0fff4;">
+              <h4 style="color:#276749;">⑤ [보너스] 브로콜리 우산</h4>
+              <img src="assets/det_umbrella_5_broccoli.png" alt="브로콜리 우산">
+              <span class="paste-badge" style="background:#c6f6d5; color:#22543d;">🥦 상상 퐁퐁 우산</span>
+            </div>
+
+            <!-- Piece 6 (Bonus) -->
+            <div class="cut-umbrella-card" style="border-color:#d69e2e; background:#fffff0;">
+              <h4 style="color:#744210;">⑥ [보너스] 도토리 잎 우산</h4>
+              <img src="assets/det_umbrella_6_acorn.png" alt="도토리 우산">
+              <span class="paste-badge" style="background:#fefcbf; color:#744210;">🌰 꼬마 도토리 우산</span>
+            </div>
+          </div>
+
+          <footer class="sheet-footer">
+            <span>도서출판 그레이트북스 《1. 톡톡톡 괜찮아》 독후활동지 · 배율: 100% 실물 크기 인쇄</span>
+            <span class="brand-signature">Made by EMom-NJ</span>
+          </footer>
+        </article>
+
+        <!-- ==================== SHEET 4: LINE MATCHING (CLEAN & WIDE) ==================== -->
+        <article id="sheet-4" class="a4-sheet">
+          <header class="sheet-header">
+            <div class="sheet-title-group">
+              <h3>✏️ [선 긋기 놀이] "누구 우산일까?" 동물과 우산을 선으로 이어보아요!</h3>
+              <p class="subtext">동화 속 이야기를 기억하며, 왼쪽 동물 친구와 오른쪽의 알맞은 우산을 색연필로 이어보세요.</p>
+            </div>
+            <div class="sheet-meta-badge">
+              <span class="page-number">Page 4 / 8</span>
+              <div>도레미곰 《1. 톡톡톡 괜찮아》</div>
+            </div>
+          </header>
+
+          <div class="instruction-strip">
+            <span>🖍️ <strong>놀이 방법:</strong> 왼쪽 동물의 파란 점(●)에서 출발해 오른쪽 알맞은 우산의 점(●)까지 선을 시원하게 그어주세요!</span>
+            <span style="font-weight:800; color:#3182ce;">눈과 손의 협응 &amp; 연상 기억</span>
+          </div>
+
+          <div class="line-matching-sheet-layout">
+            <!-- Left Animals (Flush Left, No Box) -->
+            <div class="matching-col left-col">
+              <!-- Animal 1: Mouse -->
+              <div class="match-item-row-clean">
+                <img src="assets/rain_animal_1_mouse.png" alt="생쥐">
+                <div class="match-dot-node"></div>
+              </div>
+
+              <!-- Animal 2: Rabbit -->
+              <div class="match-item-row-clean">
+                <img src="assets/rain_animal_2_rabbit.png" alt="토끼">
+                <div class="match-dot-node"></div>
+              </div>
+
+              <!-- Animal 3: Raccoon & Fox -->
+              <div class="match-item-row-clean">
+                <img src="assets/rain_animal_3_raccoon_fox.png" alt="너구리와 여우">
+                <div class="match-dot-node"></div>
+              </div>
+
+              <!-- Animal 4: Bear -->
+              <div class="match-item-row-clean">
+                <img src="assets/rain_animal_4_bear.png" alt="아기곰">
+                <div class="match-dot-node"></div>
+              </div>
+            </div>
+
+            <!-- Middle Wide Open Drawing Space for Children -->
+            <div class="matching-center-drawing-zone"></div>
+
+            <!-- Right Umbrellas (Flush Right, No Box, Shuffled!) -->
+            <div class="matching-col right-col">
+              <!-- Umbrella 1: Carrot -->
+              <div class="match-item-row-clean">
+                <div class="match-dot-node"></div>
+                <img src="assets/det_umbrella_2_carrot.png" alt="당근 우산">
+              </div>
+
+              <!-- Umbrella 2: Branch -->
+              <div class="match-item-row-clean">
+                <div class="match-dot-node"></div>
+                <img src="assets/det_umbrella_4_branch.png" alt="나뭇가지 우산">
+              </div>
+
+              <!-- Umbrella 3: Mushroom -->
+              <div class="match-item-row-clean">
+                <div class="match-dot-node"></div>
+                <img src="assets/det_umbrella_1_mushroom.png" alt="버섯 우산">
+              </div>
+
+              <!-- Umbrella 4: Leaf -->
+              <div class="match-item-row-clean">
+                <div class="match-dot-node"></div>
+                <img src="assets/det_umbrella_3_leaf.png" alt="머위 나뭇잎 우산">
+              </div>
+            </div>
+          </div>
+
+          <footer class="sheet-footer">
+            <span>도서출판 그레이트북스 《1. 톡톡톡 괜찮아》 독후활동지 · 배율: 100% 실물 크기 인쇄</span>
+            <span class="brand-signature">Made by EMom-NJ</span>
+          </footer>
+        </article>
+
+        <!-- ==================== SHEET 5: SILHOUETTE MATCHING ==================== -->
+        <article id="sheet-5" class="a4-sheet">
+          <header class="sheet-header">
+            <div class="sheet-title-group">
+              <h3>🔍 [그림자 퀴즈] 우산 그림자(실루엣)를 보고 찾아 붙여요!</h3>
+              <p class="subtext">까만 그림자의 외곽선 모양을 잘 관찰하고, 3페이지의 우산을 찾아 그림자 위에 붙여보세요.</p>
+            </div>
+            <div class="sheet-meta-badge">
+              <span class="page-number">Page 5 / 8</span>
+              <div>도레미곰 《1. 톡톡톡 괜찮아》</div>
+            </div>
+          </header>
+
+          <div class="instruction-strip">
+            <span>🧩 <strong>관찰력 놀이:</strong> "이 둥글둥글한 그림자는 누구 우산일까?" 3P의 우산 조각을 대어보며 형태를 비교해요.</span>
+            <span style="font-weight:800; color:#3182ce;">형태 인지력 &amp; 공간 지각력</span>
+          </div>
+
+          <div class="silhouette-grid">
+            <!-- Silhouette 1: Mushroom -->
+            <div class="silhouette-card">
+              <div class="silhouette-visual-box">
+                <img src="assets/det_umbrella_1_mushroom.png" alt="버섯 실루엣">
+              </div>
+              <div class="silhouette-info">
+                <h4>① 둥글둥글 갓 그림자</h4>
+                <p>"동글동글 귀여운 갓을 쓰고 빗방울을 톡톡 튕겨내는 우산은?"</p>
+                <span class="match-hint-tag">힌트: 꼬마 생쥐의 우산</span>
+              </div>
+            </div>
+
+            <!-- Silhouette 2: Carrot -->
+            <div class="silhouette-card">
+              <div class="silhouette-visual-box">
+                <img src="assets/det_umbrella_2_carrot.png" alt="당근 실루엣">
+              </div>
+              <div class="silhouette-info">
+                <h4>② 풍성한 풀잎 그림자</h4>
+                <p>"초록 잎이 깃털처럼 풍성하고 아래에는 달콤한 주황 채소가 달린 우산은?"</p>
+                <span class="match-hint-tag">힌트: 보송이 토끼의 우산</span>
+              </div>
+            </div>
+
+            <!-- Silhouette 3: Leaf -->
+            <div class="silhouette-card">
+              <div class="silhouette-visual-box">
+                <img src="assets/det_umbrella_3_leaf.png" alt="머위잎 실루엣">
+              </div>
+              <div class="silhouette-info">
+                <h4>③ 넓적한 큰 잎 그림자</h4>
+                <p>"두 친구가 쏙 들어갈 만큼 널찍하고 둥근 초록빛 자연 우산은?"</p>
+                <span class="match-hint-tag">힌트: 너구리와 여우의 우산</span>
+              </div>
+            </div>
+
+            <!-- Silhouette 4: Branch -->
+            <div class="silhouette-card">
+              <div class="silhouette-visual-box">
+                <img src="assets/det_umbrella_4_branch.png" alt="나뭇가지 실루엣">
+              </div>
+              <div class="silhouette-info">
+                <h4>④ 무성한 가지 그림자</h4>
+                <p>"나무 기둥을 번쩍 들고 씩씩하게 걸어가는 힘센 친구의 우산은?"</p>
+                <span class="match-hint-tag">힌트: 씩씩한 아기곰의 우산</span>
+              </div>
+            </div>
+          </div>
+
+          <footer class="sheet-footer">
+            <span>도서출판 그레이트북스 《1. 톡톡톡 괜찮아》 독후활동지 · 배율: 100% 실물 크기 인쇄</span>
+            <span class="brand-signature">Made by EMom-NJ</span>
+          </footer>
+        </article>
+
+        <!-- ==================== SHEET 6: MOTOR SKILLS (PATH TRACING) ==================== -->
+        <article id="sheet-6" class="a4-sheet">
+          <header class="sheet-header">
+            <div class="sheet-title-group">
+              <h3>💧 [운필력 쑥쑥] 톡톡톡 빗방울 길을 따라가보아요!</h3>
+              <p class="subtext">하늘 위 구름에서 출발해 빗방울 점선을 따라 색연필로 선을 그으며 동물 친구에게 도착해요.</p>
+            </div>
+            <div class="sheet-meta-badge">
+              <span class="page-number">Page 6 / 8</span>
+              <div>도레미곰 《1. 톡톡톡 괜찮아》</div>
+            </div>
+          </header>
+
+          <div class="instruction-strip">
+            <span>🌧️ <strong>운필력 연습:</strong> 물결선, 지그재그선, 둥근 언덕선, 곧은 직선을 그리며 연필을 쥐는 힘과 손 조절력을 길러요.</span>
+            <span style="font-weight:800; color:#3182ce;">소근육 운필력 &amp; 필기 준비</span>
+          </div>
+
+          <div class="path-tracing-container">
+            <!-- Path 1: Wavy Line -->
+            <div class="trace-row">
+              <div class="trace-start">
+                <span style="font-size:1.4rem;">☁️</span>
+                <span>보슬 구름</span>
+              </div>
+              <!-- SVG Wave Path -->
+              <svg class="svg-trace-path" viewBox="0 0 400 50">
+                <path d="M 10 25 Q 60 5, 110 25 T 210 25 T 310 25 T 390 25" fill="none" stroke="#4299e1" stroke-width="3" stroke-dasharray="6,6"/>
+                <circle cx="10" cy="25" r="5" fill="#3182ce"/>
+                <circle cx="390" cy="25" r="5" fill="#38a169"/>
+              </svg>
+              <div class="trace-end">
+                <img src="assets/rain_animal_1_mouse.png" alt="생쥐">
+                <span>생쥐 도착!</span>
+              </div>
+            </div>
+
+            <!-- Path 2: Zigzag Line -->
+            <div class="trace-row">
+              <div class="trace-start">
+                <span style="font-size:1.4rem;">🌧️</span>
+                <span>통통 구름</span>
+              </div>
+              <!-- SVG Zigzag Path -->
+              <svg class="svg-trace-path" viewBox="0 0 400 50">
+                <path d="M 10 25 L 50 10 L 90 40 L 130 10 L 170 40 L 210 10 L 250 40 L 290 10 L 330 40 L 370 10 L 390 25" fill="none" stroke="#ed8936" stroke-width="3" stroke-dasharray="6,6"/>
+                <circle cx="10" cy="25" r="5" fill="#dd6b20"/>
+                <circle cx="390" cy="25" r="5" fill="#38a169"/>
+              </svg>
+              <div class="trace-end">
+                <img src="assets/rain_animal_2_rabbit.png" alt="토끼">
+                <span>토끼 도착!</span>
+              </div>
+            </div>
+
+            <!-- Path 3: Hill Curves -->
+            <div class="trace-row">
+              <div class="trace-start">
+                <span style="font-size:1.4rem;">🌦️</span>
+                <span>포근 구름</span>
+              </div>
+              <!-- SVG Hill Curves -->
+              <svg class="svg-trace-path" viewBox="0 0 400 50">
+                <path d="M 10 35 C 50 5, 80 5, 120 35 C 160 5, 190 5, 230 35 C 270 5, 300 5, 340 35 L 390 25" fill="none" stroke="#38a169" stroke-width="3" stroke-dasharray="6,6"/>
+                <circle cx="10" cy="35" r="5" fill="#276749"/>
+                <circle cx="390" cy="25" r="5" fill="#38a169"/>
+              </svg>
+              <div class="trace-end">
+                <img src="assets/rain_animal_3_raccoon_fox.png" alt="너구리와 여우">
+                <span>둘에게 쏙!</span>
+              </div>
+            </div>
+
+            <!-- Path 4: Straight Line -->
+            <div class="trace-row">
+              <div class="trace-start">
+                <span style="font-size:1.4rem;">⛈️</span>
+                <span>씩씩 구름</span>
+              </div>
+              <!-- SVG Straight Line -->
+              <svg class="svg-trace-path" viewBox="0 0 400 50">
+                <line x1="10" y1="25" x2="390" y2="25" stroke="#805ad5" stroke-width="3.5" stroke-dasharray="8,6"/>
+                <circle cx="10" cy="25" r="5" fill="#6b46c1"/>
+                <circle cx="390" cy="25" r="5" fill="#38a169"/>
+              </svg>
+              <div class="trace-end">
+                <img src="assets/rain_animal_4_bear.png" alt="아기곰">
+                <span>아기곰 도착!</span>
+              </div>
+            </div>
+          </div>
+
+          <footer class="sheet-footer">
+            <span>도서출판 그레이트북스 《1. 톡톡톡 괜찮아》 독후활동지 · 배율: 100% 실물 크기 인쇄</span>
+            <span class="brand-signature">Made by EMom-NJ</span>
+          </footer>
+        </article>
+
+        <!-- ==================== SHEET 7: CREATIVE DRAWING ==================== -->
+        <article id="sheet-7" class="a4-sheet">
+          <header class="sheet-header">
+            <div class="sheet-title-group">
+              <h3>🎨 [창의 드로잉] 내가 그리는 나만의 상상 자연 우산!</h3>
+              <p class="subtext">"친구들아, 내 우산도 봐봐!" 세상에서 가장 맛있고 특별한 자연 우산을 그려보아요.</p>
+            </div>
+            <div class="sheet-meta-badge">
+              <span class="page-number">Page 7 / 8</span>
+              <div>도레미곰 《1. 톡톡톡 괜찮아》</div>
+            </div>
+          </header>
+
+          <div class="instruction-strip">
+            <span>💡 <strong>창의 미술:</strong> 정답은 없어요! 아이가 좋아하는 과일, 채소, 꽃, 사물을 자유롭게 우산으로 변신시켜 주세요.</span>
+            <span style="font-weight:800; color:#dd6b20;">상상력 &amp; 자기 표현력</span>
+          </div>
+
+          <div class="creative-drawing-layout">
+            <!-- Giant Canvas Board -->
+            <div class="drawing-canvas-board">
+              <div class="canvas-prompt-header">
+                <h4>✏️ 여기에 나만의 특별한 우산을 멋지게 그려보아요!</h4>
+                <span style="font-size:0.75rem; color:#718096;">빗방울이 토독토독 떨어지는 숲속 도화지</span>
+              </div>
+
+              <!-- Animal waiting for child's umbrella -->
+              <div class="drawing-animal-bottom">
+                <img src="assets/rain_animal_2_rabbit.png" alt="우산을 기다리는 토끼">
+              </div>
+
+              <div class="child-statement-banner">
+                "내가 그린 멋진 우산은 [ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ] 우산이에요!"
+              </div>
+            </div>
+
+            <!-- Sidebar Idea Prompts -->
+            <div class="drawing-ideas-sidebar">
+              <div class="idea-prompt-card">
+                <strong>🍉 달콤 수박 우산</strong>
+                <p>시원한 초록 껍질과 빨간 속살의 수박 조각 우산!</p>
+              </div>
+
+              <div class="idea-prompt-card">
+                <strong>🍓 빨간 딸기 우산</strong>
+                <p>동글동글 앙증맞은 꼭지를 잡고 쓰는 딸기 우산!</p>
+              </div>
+
+              <div class="idea-prompt-card">
+                <strong>🌻 활짝 해바라기</strong>
+                <p>노란 꽃잎이 활짝 핀 햇살 같은 해바라기 우산!</p>
+              </div>
+
+              <div class="idea-prompt-card">
+                <strong>🍕 치즈 피자 우산</strong>
+                <p>세모난 피자 조각을 머리 위에 쓴 맛있는 우산!</p>
+              </div>
+            </div>
+          </div>
+
+          <footer class="sheet-footer">
+            <span>도서출판 그레이트북스 《1. 톡톡톡 괜찮아》 독후활동지 · 배율: 100% 실물 크기 인쇄</span>
+            <span class="brand-signature">Made by EMom-NJ</span>
+          </footer>
+        </article>
+
+        <!-- ==================== SHEET 8: FULL A4 COLORING POSTER ==================== -->
+        <article id="sheet-8" class="a4-sheet">
+          <header class="sheet-header">
+            <div class="sheet-title-group">
+              <h3>🖍️ [동화 명장면 대형 색칠 놀이] "톡톡톡 괜찮아!"</h3>
+              <p class="subtext">동물 친구들이 모두 모여 우산을 쓰고 웃는 따뜻한 숲속 명장면을 알록달록 색칠해보아요.</p>
+            </div>
+            <div class="sheet-meta-badge">
+              <span class="page-number">Page 8 / 8</span>
+              <div>도레미곰 《1. 톡톡톡 괜찮아》</div>
+            </div>
+          </header>
+
+          <div class="instruction-strip">
+            <span>🎨 <strong>색칠 놀이:</strong> 크레파스나 색연필로 마음껏 칠하고, 동물 친구들과 함께 소리쳐보아요: "톡톡톡 괜찮아!"</span>
+            <span style="font-weight:800; color:#3182ce;">색채 감각 &amp; 정서 안정</span>
+          </div>
+
+          <!-- Full Page Coloring Poster (Cards removed, maximized) -->
+          <div class="full-coloring-layout">
+            <div class="full-coloring-img-wrapper">
+              <img src="assets/toktok_coloring_page.jpg" alt="동물 친구들 명장면 대형 컬러링">
+            </div>
+            <div class="coloring-prompt-strip">
+              🌈 "예쁘게 칠하고 동물 친구들에게 '괜찮아!' 하고 따뜻하게 인사해요!"
+            </div>
+          </div>
+
+          <footer class="sheet-footer">
+            <span>도서출판 그레이트북스 《1. 톡톡톡 괜찮아》 독후활동지 · 배율: 100% 실물 크기 인쇄</span>
+            <span class="brand-signature">Made by EMom-NJ</span>
+          </footer>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- =========================================================
+         TAB 2: INTERACTIVE DIGITAL LINE MATCHING GAME (CANVAS)
+         ========================================================= -->
+    <section id="tab-line-game" class="tab-pane">
+      <div class="hero-banner">
+        <div class="hero-text">
+          <h2>✏️ 누구 우산일까? 인터랙티브 선 잇기 게임</h2>
+          <p>
+            마우스나 손가락으로 <strong>동물의 동그라미(●)를 누른 뒤 알맞은 우산으로 선을 그어보세요</strong>! 
+            정답을 연결하면 톡톡톡 빗소리와 함께 칭찬 효과음이 울립니다.
+          </p>
+        </div>
+        <button id="resetLineGameBtn" class="btn btn-secondary">
+          🔄 선 지우고 다시 하기
+        </button>
+      </div>
+
+      <div class="interactive-line-game-board" id="lineBoardWrapper">
+        <canvas id="lineGameCanvas"></canvas>
+
+        <div class="game-columns-container">
+          <!-- Left Animals -->
+          <div class="game-card-col">
+            <div class="game-item-card" data-animal="mouse" id="node-mouse">
+              <img src="assets/rain_animal_1_mouse.png" alt="생쥐">
+              <div>
+                <strong style="font-family:'Gaegu',cursive; font-size:1.4rem; color:#2b6cb0;">🐭 꼬마 생쥐</strong>
+              </div>
+            </div>
+
+            <div class="game-item-card" data-animal="rabbit" id="node-rabbit">
+              <img src="assets/rain_animal_2_rabbit.png" alt="토끼">
+              <div>
+                <strong style="font-family:'Gaegu',cursive; font-size:1.4rem; color:#dd6b20;">🐰 보송이 토끼</strong>
+              </div>
+            </div>
+
+            <div class="game-item-card" data-animal="raccoon" id="node-raccoon">
+              <img src="assets/rain_animal_3_raccoon_fox.png" alt="너구리와 여우">
+              <div>
+                <strong style="font-family:'Gaegu',cursive; font-size:1.4rem; color:#38a169;">🦝🦊 너구리·여우</strong>
+              </div>
+            </div>
+
+            <div class="game-item-card" data-animal="bear" id="node-bear">
+              <img src="assets/rain_animal_4_bear.png" alt="아기곰">
+              <div>
+                <strong style="font-family:'Gaegu',cursive; font-size:1.4rem; color:#8c5b36;">🐻 씩씩한 아기곰</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Center Guide Hint -->
+          <div style="text-align:center; color:#718096; font-size:0.9rem; pointer-events:none;">
+            <p style="font-family:'Gaegu', cursive; font-size:1.6rem; color:#3182ce;">🌧️ 톡톡톡 빗방울 길</p>
+            <p style="font-size:0.85rem;">동물에서 우산으로 선을 쓱쓱 이어보아요!</p>
+          </div>
+
+          <!-- Right Umbrellas (Shuffled!) -->
+          <div class="game-card-col">
+            <div class="game-item-card" data-umbrella="carrot" id="node-carrot">
+              <img src="assets/det_umbrella_2_carrot.png" alt="당근 우산">
+              <div>
+                <strong style="font-family:'Gaegu',cursive; font-size:1.4rem; color:#dd6b20;">🥕 싱싱 당근 잎</strong>
+              </div>
+            </div>
+
+            <div class="game-item-card" data-umbrella="branch" id="node-branch">
+              <img src="assets/det_umbrella_4_branch.png" alt="나뭇가지 우산">
+              <div>
+                <strong style="font-family:'Gaegu',cursive; font-size:1.4rem; color:#8c5b36;">🌿 푸른 나뭇가지</strong>
+              </div>
+            </div>
+
+            <div class="game-item-card" data-umbrella="mouse" id="node-mushroom">
+              <img src="assets/det_umbrella_1_mushroom.png" alt="버섯 우산">
+              <div>
+                <strong style="font-family:'Gaegu',cursive; font-size:1.4rem; color:#2b6cb0;">🍄 노란 버섯</strong>
+              </div>
+            </div>
+
+            <div class="game-item-card" data-umbrella="raccoon" id="node-leaf">
+              <img src="assets/det_umbrella_3_leaf.png" alt="머위잎 우산">
+              <div>
+                <strong style="font-family:'Gaegu',cursive; font-size:1.4rem; color:#38a169;">🍃 머위 나뭇잎</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         TAB 3: DIGITAL PASTE PREVIEW (DRAG & DROP)
+         ========================================================= -->
+    <section id="tab-paste-preview" class="tab-pane">
+      <div class="hero-banner">
+        <div class="hero-text">
+          <h2>✂️ 디지털 우산 씌우기: 비 맞는 동물에게 우산을 씌워줘요!</h2>
+          <p>
+            아래 우산 보관함에서 우산을 집어 <strong>비를 맞고 있는 동물 친구 머리 위로 끌어다 놓아보세요</strong>!
+            우산을 씌워주면 방긋 웃는 모습으로 변신합니다.
+          </p>
+        </div>
+        <button id="resetPasteBtn" class="btn btn-secondary">
+          🔄 우산 벗기기
+        </button>
+      </div>
+
+      <!-- Umbrellas Bar -->
+      <div style="background:white; border-radius:var(--radius-lg); padding:16px; border:1px solid #e2e8f0; margin-bottom:20px; box-shadow:var(--shadow-card);">
+        <h4 style="font-family:'Gaegu', cursive; font-size:1.35rem; color:#2b6cb0; margin-bottom:10px;">🧺 우산 바구니 (원하는 우산을 마우스로 끌어보세요)</h4>
+        <div style="display:flex; gap:16px; justify-content:space-around; flex-wrap:wrap;">
+          <div class="drag-item" draggable="true" data-type="mouse" style="padding:8px 16px; cursor:grab;">
+            <img src="assets/det_umbrella_1_mushroom.png" alt="버섯" style="height:65px;">
+            <span>노란 버섯</span>
+          </div>
+          <div class="drag-item" draggable="true" data-type="rabbit" style="padding:8px 16px; cursor:grab;">
+            <img src="assets/det_umbrella_2_carrot.png" alt="당근" style="height:65px;">
+            <span>싱싱 당근</span>
+          </div>
+          <div class="drag-item" draggable="true" data-type="raccoon" style="padding:8px 16px; cursor:grab;">
+            <img src="assets/det_umbrella_3_leaf.png" alt="머위잎" style="height:65px;">
+            <span>머위 나뭇잎</span>
+          </div>
+          <div class="drag-item" draggable="true" data-type="bear" style="padding:8px 16px; cursor:grab;">
+            <img src="assets/det_umbrella_4_branch.png" alt="나뭇가지" style="height:65px;">
+            <span>푸른 나뭇가지</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 Animal Drop Zones -->
+      <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:16px;">
+        <!-- Mouse Zone -->
+        <div class="drop-target-card" data-accept="mouse" id="paste-zone-mouse">
+          <div style="font-family:'Gaegu',cursive; font-size:1.35rem; color:#2b6cb0;">🐭 꼬마 생쥐</div>
+          <img src="assets/rain_animal_1_mouse.png" alt="생쥐" class="target-animal-img">
+          <div class="slot-instruction" style="font-size:0.85rem; color:#718096; font-weight:700;">
+            비를 맞고 있어요! 노란 버섯 우산을 씌워주세요!
+          </div>
+        </div>
+
+        <!-- Rabbit Zone -->
+        <div class="drop-target-card" data-accept="rabbit" id="paste-zone-rabbit">
+          <div style="font-family:'Gaegu',cursive; font-size:1.35rem; color:#dd6b20;">🐰 보송이 토끼</div>
+          <img src="assets/rain_animal_2_rabbit.png" alt="토끼" class="target-animal-img">
+          <div class="slot-instruction" style="font-size:0.85rem; color:#718096; font-weight:700;">
+            귀가 젖고 있어요! 싱싱 당근 우산을 씌워주세요!
+          </div>
+        </div>
+
+        <!-- Raccoon Zone -->
+        <div class="drop-target-card" data-accept="raccoon" id="paste-zone-raccoon">
+          <div style="font-family:'Gaegu',cursive; font-size:1.35rem; color:#38a169;">🦝🦊 너구리와 여우</div>
+          <img src="assets/rain_animal_3_raccoon_fox.png" alt="너구리와 여우" class="target-animal-img">
+          <div class="slot-instruction" style="font-size:0.85rem; color:#718096; font-weight:700;">
+            둘이 꼭 안고 있어요! 커다란 머위잎을 씌워주세요!
+          </div>
+        </div>
+
+        <!-- Bear Zone -->
+        <div class="drop-target-card" data-accept="bear" id="paste-zone-bear">
+          <div style="font-family:'Gaegu',cursive; font-size:1.35rem; color:#8c5b36;">🐻 씩씩한 아기곰</div>
+          <img src="assets/rain_animal_4_bear.png" alt="아기곰" class="target-animal-img">
+          <div class="slot-instruction" style="font-size:0.85rem; color:#718096; font-weight:700;">
+            큰 비가 와요! 푸른 나뭇가지를 씌워주세요!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         TAB 4: PARENT GUIDE (EMOM-NJ TIPS)
+         ========================================================= -->
+    <section id="tab-guide" class="tab-pane">
+      <div style="background:white; border-radius:var(--radius-lg); padding:32px; box-shadow:var(--shadow-card); border:1px solid #e2e8f0;">
+        <h2 style="font-family:'Gaegu', cursive; font-size:2.2rem; color:#2b6cb0;">
+          💡 도레미곰 《1. 톡톡톡 괜찮아》 엄마표 독후 가이드
+        </h2>
+        <p style="color:#718096; font-size:1.05rem;">
+          Made by EMom-NJ · 아이의 소근육 발달과 따뜻한 정서 대화를 이끌어내는 팁
+        </p>
+
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; margin-top:24px;">
+          <div style="border:1px solid #e2e8f0; border-radius:14px; padding:20px; background:#f7fafc;">
+            <h4 style="font-family:'Gaegu', cursive; font-size:1.4rem; color:#2b6cb0; margin-bottom:8px;">✂️ 1. 오려 붙이기 놀이 팁</h4>
+            <p style="font-size:0.9rem; color:#4a5568; line-height:1.6;">
+              3페이지의 우산들은 아이의 작은 손으로도 오리기 쉽도록 <strong>굵고 둥근 외곽 점선</strong>으로 디자인되었습니다.
+            </p>
+            <ul style="padding-left:18px; margin-top:8px; font-size:0.85rem; color:#718096;">
+              <li>아이가 가위질이 서툴다면 엄마가 큼직하게 오려주고, 아이가 풀칠을 담당하게 해주세요.</li>
+              <li>우산을 붙일 때마다 "생쥐야 괜찮아!", "토끼야 괜찮아!" 함께 소리치면 성취감이 배가됩니다.</li>
+            </ul>
+          </div>
+
+          <div style="border:1px solid #e2e8f0; border-radius:14px; padding:20px; background:#f7fafc;">
+            <h4 style="font-family:'Gaegu', cursive; font-size:1.4rem; color:#dd6b20; margin-bottom:8px;">✏️ 2. 선 잇기와 운필력 팁</h4>
+            <p style="font-size:0.9rem; color:#4a5568; line-height:1.6;">
+              4페이지와 6페이지는 <strong>만 2~4세 유아의 손 힘과 협응력</strong>을 기르는 발달 단계별 선으로 구성되어 있습니다.
+            </p>
+            <ul style="padding-left:18px; margin-top:8px; font-size:0.85rem; color:#718096;">
+              <li>처음에는 손가락으로 길을 따라가보고, 그 다음 두꺼운 크레파스나 색연필로 선을 긋습니다.</li>
+              <li>삐뚤빼뚤해도 괜찮다고 격려해주며 비 오는 소리 "톡톡톡"을 입으로 내주세요.</li>
+            </ul>
+          </div>
+
+          <div style="border:1px solid #e2e8f0; border-radius:14px; padding:20px; background:#f7fafc;">
+            <h4 style="font-family:'Gaegu', cursive; font-size:1.4rem; color:#38a169; margin-bottom:8px;">💖 3. 대형 색칠 놀이 팁</h4>
+            <p style="font-size:0.9rem; color:#4a5568; line-height:1.6;">
+              8페이지는 A4 전체를 시원하게 채운 <strong>동화 명장면 대형 색칠 포스터</strong>입니다.
+            </p>
+            <ul style="padding-left:18px; margin-top:8px; font-size:0.85rem; color:#718096;">
+              <li>동물 친구들이 모여 우산을 쓰고 있는 모습을 알록달록 색칠하며 성취감을 키워주세요.</li>
+              <li>완성된 그림을 벽에 걸어두고 "비 오는 날 우리도 친구에게 괜찮아 물어보자!" 약속해보세요.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
