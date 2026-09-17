@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>도레미곰 《동물도미노》 입체 도미노 박스 독후활동지 & 놀이존</title>
+  <meta name="description" content="도레미곰 그림책 《동물도미노》 0번 아기 캥거루부터 12번 코끼리까지 13마리 동물들을 실제 표지 크기 그대로 3D 도미노 박스로 접어 직접 도미노 및 5가지 창의 놀이를 즐기는 프리미엄 독후활동지">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Dynamic Domino & Musical Notes Animated Background Canvas -->
+  <canvas id="dominoBgCanvas" class="domino-bg-canvas"></canvas>
+
+  <!-- 상단 헤더 및 네비게이션 탭 (화면 전용 Sticky 고정 바) -->
+  <div class="sticky-top-bar no-print">
+    <header class="app-header">
+      <div class="header-container">
+        <div class="brand-area">
+          <div class="brand-badge">도레미곰 독후활동</div>
+          <h1 class="brand-title">🎵 동물도미노 <span>입체 블록 활동지</span></h1>
+        </div>
+
+        <div class="header-actions">
+          <!-- 배경 움직임 효과 조절기 -->
+          <div class="motion-control-group" title="배경 움직임 테마 조절">
+            <span class="motion-label">배경 효과:</span>
+            <button class="motion-btn" data-mode="gentle">🎵 살랑살랑</button>
+            <button class="motion-btn active" data-mode="party">🎲 도미노 파티</button>
+            <button class="motion-btn" data-mode="rush">💥 와르르!</button>
+          </div>
+
+          <!-- 효과음 토글 버튼 -->
+          <button id="dominoAudioBtn" class="btn btn-audio" title="도레미 실로폰 & 도미노 효과음">
+            <span id="dominoAudioIcon">🎵</span> <span id="dominoAudioText">효과음 켜기</span>
+          </button>
+
+          <!-- 인쇄 크기 선택기 -->
+          <div class="scale-selector">
+            <label>📏 크기 비율:</label>
+            <button class="scale-btn active" data-scale="1.0" title="표지에 인쇄된 실제 치수 그대로 출력">100% 실물 크기</button>
+            <button class="scale-btn" data-scale="1.3" title="가위질과 조립이 조금 더 쉬운 1.3배 확대">1.3배 확대</button>
+            <button class="scale-btn" data-scale="1.5" title="아이 손에 알맞은 1.5배 확대">1.5배 확대</button>
+            <button class="scale-btn" data-scale="2.0" title="어린 유아용 큰 블록 2배 확대">2.0배 큰블록</button>
+          </div>
+
+          <!-- 인쇄 버튼 -->
+          <button class="btn btn-primary" onclick="window.printAllSheets()">
+            <span>🖨️</span> 전체 활동지 인쇄하기 (A4 15장)
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 네비게이션 탭 (Scroll Down 시 Freeze 고정) -->
+    <nav class="nav-tabs-wrapper">
+      <div class="nav-tabs">
+        <button class="nav-tab active" data-tab="tab-print">
+          <span>🎨</span> 활동지 인쇄 미리보기 (A4 15장)
+        </button>
+        <button class="nav-tab" data-tab="tab-playzone">
+          <span>🎮</span> 5가지 신나는 동물 놀이존
+        </button>
+        <button class="nav-tab" data-tab="tab-3d">
+          <span>🎲</span> 3D 도미노 박스 만져보기
+        </button>
+        <button class="nav-tab" data-tab="tab-game">
+          <span>⚡</span> 도미노 쓰러뜨리기 게임
+        </button>
+        <button class="nav-tab" data-tab="tab-guide">
+          <span>📖</span> 조립 & 놀이 가이드
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- 메인 컨텐츠 영역 -->
+  <main class="main-content">
+
+    <!-- 탭 1: 활동지 인쇄 미리보기 (A4 15장) -->
+    <section id="tab-print" class="tab-pane active">
+      <div class="info-banner no-print">
+        <div class="info-text">
+          <span style="font-size: 22px;">💡</span>
+          <div>
+            <strong>현재 선택된 출력 크기: <span id="current-scale-label" style="color: #EA580C;">100% 표지 실물 크기</span> (A4 총 15장)</strong>
+            <div style="font-size: 13px; color: #78350F; margin-top: 2px;">
+              동물 순서(생쥐·토끼·너구리·코알라·판다·물개·캥거루·얼룩말·고릴라·곰·하마·코끼리)가 완벽하게 반영되었으며, <strong>0번 아기 캥거루</strong>를 시작으로 총 15장의 넉넉한 1:1 전개도로 구성되었습니다.
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-secondary" onclick="window.printAllSheets()">
+          <span>🖨️</span> 바로 인쇄
+        </button>
+      </div>
+
+      <!-- 동적으로 렌더링되는 A4 인쇄 시트들 -->
+      <div id="sheets-container" class="sheets-grid"></div>
+    </section>
+
+    <!-- 탭 2: 5가지 창의 놀이존 -->
+    <section id="tab-playzone" class="tab-pane">
+      <div style="text-align: center; margin-bottom: 24px;">
+        <h2 style="font-family: 'Jua', sans-serif; font-size: 28px; color: #1E293B;">
+          🎉 도미노 박스로 즐기는 5가지 창의 놀이존!
+        </h2>
+        <p style="font-size: 15px; color: #64748B;">
+          도미노 쓰러뜨리기뿐만 아니라, 완성된 입체 박스로 아이와 다양하고 신나게 놀 수 있는 창의 놀이들이 준비되어 있어요!
+        </p>
+      </div>
+
+      <div class="play-zone-grid">
+        <!-- 놀이 1: 아슬아슬 동물 탑 쌓기 -->
+        <div class="play-card">
+          <div>
+            <div class="play-card-header">
+              <div class="play-card-icon">🗼</div>
+              <div>
+                <h3 class="play-card-title">1. 아슬아슬 동물 탑 쌓기</h3>
+                <span class="play-step-badge">소근육 발달 · 공간 감각</span>
+              </div>
+            </div>
+            <div class="play-card-body">
+              13페이지의 대형 기초 원 위에 가장 튼튼한 코끼리나 하마를 올리고, 위로 하나씩 쌓아 올리는 밸런스 타워 놀이예요!<br>
+              <strong>도전 미션:</strong> 3마리 → 5마리 → 7마리 → 10마리 → 13마리 전원 탑 완성에 도전해보세요!
+            </div>
+
+            <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 12px; margin-top: 10px;">
+              <div style="font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 6px;">
+                🎮 화면에서 먼저 쌓아보기 (클릭하면 올라가요):
+              </div>
+              <div id="tower-picker-btns" style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;"></div>
+              
+              <div style="background: #FFF; border: 1px dashed #CBD5E1; border-radius: 8px; min-height: 160px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding: 10px;">
+                <div id="tower-visual-stage" style="display: flex; flex-direction: column; align-items: center; gap: 2px;"></div>
+                <div style="width: 100px; height: 6px; background: #94A3B8; border-radius: 4px; margin-top: 4px;"></div>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+                <span style="font-family: 'Jua', sans-serif; font-size: 14px; color: #EA580C;">현재 탑 높이: <span id="tower-height-num">0 cm (0층)</span></span>
+                <button class="btn btn-secondary" id="btn-reset-tower" style="font-size: 11px; padding: 4px 10px;">초기화</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 놀이 2: 누가누가 더 클까? 동물 크기 배틀 퀴즈 -->
+        <div class="play-card">
+          <div>
+            <div class="play-card-header">
+              <div class="play-card-icon">📏</div>
+              <div>
+                <h3 class="play-card-title">2. 누가누가 더 클까? 크기 배틀</h3>
+                <span class="play-step-badge">비교 측정 · 수학적 사고</span>
+              </div>
+            </div>
+            <div class="play-card-body">
+              두 마리 동물 박스를 마주 대어보며 "누가 더 클까?" 퀴즈를 맞추는 놀이예요!<br>
+              0번 아기 캥거루부터 12번째 코끼리까지 크기 순서로 정렬하는 감각을 길러줍니다.
+            </div>
+
+            <div style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 10px; padding: 14px; margin-top: 10px; text-align: center;">
+              <div style="font-family: 'Jua', sans-serif; font-size: 15px; color: #15803D; margin-bottom: 8px;">
+                ❓ 퀴즈: 두 동물 중 누가 더 키가 클까요?
+              </div>
+              <div style="display: flex; justify-content: space-around; gap: 10px; margin-bottom: 10px;">
+                <button class="btn btn-secondary" id="quiz-opt-1" onclick="answerQuiz(1)" style="flex: 1; padding: 12px 6px;"></button>
+                <button class="btn btn-secondary" id="quiz-opt-2" onclick="answerQuiz(2)" style="flex: 1; padding: 12px 6px;"></button>
+              </div>
+              <div id="quiz-result-msg" style="display: none; padding: 8px; border-radius: 8px; font-family: 'Jua', sans-serif; font-size: 13px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 놀이 3: 동물 볼링 & 타겟 점수 놀이 -->
+        <div class="play-card">
+          <div>
+            <div class="play-card-header">
+              <div class="play-card-icon">🎳</div>
+              <div>
+                <h3 class="play-card-title">3. 동물 볼링 & 타겟 슛</h3>
+                <span class="play-step-badge">신체 협응 · 덧셈 놀이</span>
+              </div>
+            </div>
+            <div class="play-card-body">
+              12페이지의 삼각형 과녁에 동물들을 세우고, 작은 공이나 미니카를 굴려 스트라이크 도전!<br>
+              쓰러진 박스 뒷면의 번호(0~12점)를 더해 점수를 계산해보세요.
+            </div>
+
+            <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 10px; padding: 12px; margin-top: 10px;">
+              <div style="font-size: 12px; font-weight: 700; color: #1E40AF; margin-bottom: 6px;">
+                🎯 넘어뜨린 동물을 체크해보세요:
+              </div>
+              <div id="bowling-checklist" style="max-height: 85px; overflow-y: auto; background: #FFF; padding: 6px; border-radius: 6px; border: 1px solid #DBEAFE;"></div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+                <div>
+                  <span id="bowling-knockdown-count" style="font-size: 11px; color: #64748B;">넘어뜨린 동물: 0 / 13 마리</span>
+                  <div id="bowling-total-score" style="font-family: 'Jua', sans-serif; font-size: 16px; color: #1D4ED8;">0 점</div>
+                </div>
+                <button class="btn btn-secondary" onclick="resetBowling()" style="font-size: 11px; padding: 4px 10px;">점수 초기화</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 놀이 4: 초대형 도레미 사파리 마을 어드벤처 -->
+        <div class="play-card">
+          <div>
+            <div class="play-card-header">
+              <div class="play-card-icon">🏞️</div>
+              <div>
+                <h3 class="play-card-title">4. 초대형 사파리 마을 역할놀이</h3>
+                <span class="play-step-badge">언어 표현력 · 공간 역할극</span>
+              </div>
+            </div>
+            <div class="play-card-body">
+              14페이지와 15페이지를 나란히 붙이면 <strong>42cm 초대형 사파리 지도</strong>가 완성됩니다!<br>
+              12cm 코끼리 쉼터, 9cm 하마 목욕탕, 캥거루 모자 점핑 초원 등 실물 박스가 쏙 들어가는 넉넉한 공간에서 친구들과 신나는 모험 이야기를 만들어보세요!
+            </div>
+          </div>
+        </div>
+
+        <!-- 놀이 5: 꼭꼭 숨어라! 동물 탐정 보물찾기 -->
+        <div class="play-card">
+          <div>
+            <div class="play-card-header">
+              <div class="play-card-icon">🕵️</div>
+              <div>
+                <h3 class="play-card-title">5. 꼭꼭 숨어라! 동물 탐정 보물찾기</h3>
+                <span class="play-step-badge">관찰력 · 주의 집중력</span>
+              </div>
+            </div>
+            <div class="play-card-body">
+              박스 밑면이 열리는 입체 박스의 장점을 활용한 보물찾기 게임!<br>
+              부모님이 동물 박스 중 하나 안에 작은 간식(젤리, 스티커)을 숨겨두고, 힌트 수수께끼를 내어 아이가 동물을 찾아 열어보는 탐정 놀이입니다.
+            </div>
+          </div>
+        </div>
+
+        <!-- 놀이 6: 구슬 미로 탈출 & 릴레이 레이스 -->
+        <div class="play-card">
+          <div>
+            <div class="play-card-header">
+              <div class="play-card-icon">🏎️</div>
+              <div>
+                <h3 class="play-card-title">6. 동물 블록 미로 탈출</h3>
+                <span class="play-step-badge">문제 해결력 · 창의적 구성</span>
+              </div>
+            </div>
+            <div class="play-card-body">
+              13마리 동물 박스를 길 양쪽에 벽처럼 세워 구불구불한 미로 길을 만들고, 그 사이로 탁구공이나 미니카를 굴려 빠져나가는 미로 탈출 챌린지를 즐겨보세요!
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 탭 3: 3D 도미노 박스 뷰어 -->
+    <section id="tab-3d" class="tab-pane">
+      <div class="viewer-3d-layout">
+        <aside class="animal-picker-panel">
+          <div class="panel-title"><span>🐾</span> 동물 선택하기 (13종)</div>
+          <div id="animal-pick-list" class="animal-list-cards"></div>
+        </aside>
+
+        <div class="stage-3d-panel">
+          <div class="stage-header-info" id="stage-animal-info"></div>
+
+          <div class="stage-viewport" id="stage-viewport" title="마우스로 드래그하여 360도 회전해 보세요!">
+            <div class="box-3d-wrapper" id="box-3d"></div>
+          </div>
+
+          <div class="stage-controls">
+            <button class="btn btn-primary" id="btn-toggle-fold">펼쳐서 전개도 보기</button>
+            <div style="font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 4px;">
+              <span>🖱️</span> 마우스나 손가락으로 드래그하면 360° 자유 회전됩니다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 탭 4: 도미노 쓰러뜨리기 시뮬레이터 -->
+    <section id="tab-game" class="tab-pane">
+      <div class="domino-sim-container">
+        <h2 style="font-family: 'Jua', sans-serif; font-size: 26px; color: #0369A1; margin-bottom: 8px;">
+          ⚡ 동물도미노 연쇄 쓰러뜨리기!
+        </h2>
+        <p style="font-size: 14px; color: #0284C7; margin-bottom: 24px;">
+          엄마 주머니에서 쏙 나온 0번 아기 캥거루부터 12번 코끼리까지 크기 순서대로 서 있어요! 아기 캥거루를 톡 건드려 보세요!
+        </p>
+
+        <div class="sim-track-viewport">
+          <div class="sim-track-floor"></div>
+          <div class="sim-domino-line" id="sim-domino-line"></div>
+        </div>
+
+        <div id="domino-success-banner" style="display: none; margin-top: 20px; padding: 16px; background: #DCFCE7; border: 2px solid #22C55E; border-radius: 12px;">
+          <h3 style="font-family: 'Jua', sans-serif; font-size: 22px; color: #15803D;">🎉 와아! 13마리 동물도미노 완벽 성공!</h3>
+          <p style="font-size: 14px; color: #166534; margin-top: 4px;">가장 작은 아기 캥거루가 넘어져서 커다란 코끼리까지 차례대로 쓰러졌어요!</p>
+        </div>
+
+        <div class="sim-controls-bar">
+          <button class="btn btn-primary" id="btn-push-domino" style="font-size: 18px; padding: 12px 28px;">
+            <span>👉</span> 아기 캥거루 톡! 밀어보기
+          </button>
+          <button class="btn btn-secondary" id="btn-reset-domino" style="font-size: 16px;">
+            <span>🔄</span> 다시 세우기
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 탭 5: 조립 & 놀이 가이드 -->
+    <section id="tab-guide" class="tab-pane">
+      <div class="guide-container">
+        <div class="guide-card">
+          <h3><span>✂️</span> 뚝딱뚝딱 도미노 박스 만들기 팁</h3>
+          <ul class="guide-step-list">
+            <li>
+              <span class="guide-step-num">1</span>
+              <div>
+                <strong>가위로 오리기</strong><br>
+                검정색 굵은 실선(✂️)을 따라 외곽선을 오려주세요. 아기 캥거루와 생쥐는 크기가 작으니 부모님이 조심조심 오려주시면 좋아요.
+              </div>
+            </li>
+            <li>
+              <span class="guide-step-num">2</span>
+              <div>
+                <strong>접는 선 꾹꾹 누르기</strong><br>
+                점선(┄)을 따라 자를 대고 손톱으로 꾹꾹 접어두면 박스 모양이 반듯하게 각 잡혀 훨씬 잘 서요.
+              </div>
+            </li>
+            <li>
+              <span class="guide-step-num">3</span>
+              <div>
+                <strong>풀칠 날개 붙이기</strong><br>
+                노란색 '풀칠' 면에 딱풀이나 양면테이프를 붙여 4개 옆면과 윗면/바닥을 마감해요.
+              </div>
+            </li>
+            <li>
+              <span class="guide-step-num">4</span>
+              <div>
+                <strong>코끼리 조립 팁</strong><br>
+                12번 코끼리는 2장(파트A, 파트B)으로 나뉘어 있어요. 번호 날개끼리 맞대어 붙여주면 거대한 대장 코끼리가 튼튼하게 완성됩니다!
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="guide-card">
+          <h3><span>💬</span> 아이와 나누는 도레미곰 대화 팁</h3>
+          <ul class="guide-step-list">
+            <li>
+              <span class="guide-step-num">?</span>
+              <div>
+                "엄마 배에서 나온 아기 캥거루가 생쥐보다도 작았네! 아기 캥거루가 톡 쓰러지면 어떻게 될까?"
+              </div>
+            </li>
+            <li>
+              <span class="guide-step-num">?</span>
+              <div>
+                "하마와 곰 중에 누가 더 키가 크고, 누가 더 뚱뚱할까? 박스를 서로 맞대어 볼까?"
+              </div>
+            </li>
+            <li>
+              <span class="guide-step-num">?</span>
+              <div>
+                "우리가 직접 만든 동물도미노로 사파리 마을 여행도 떠나보고, 높이높이 탑도 쌓아볼까?"
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer style="text-align: center; padding: 24px 0 20px; font-size: 13px; color: #94A3B8; border-top: 1px solid #E2E8F0; margin-top: 30px;" class="no-print">
+    도레미곰 《동물도미노》 인터랙티브 독후활동지 · <strong style="color: #EA580C; font-weight: 800;">Made by EMom-NJ</strong>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
